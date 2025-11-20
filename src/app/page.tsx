@@ -29,8 +29,16 @@ import { ImagePlaceholder } from "./components/common/ImageDisplay";
 import SectionHeading from "./components/common/SectionHeading";
 import HeroSection from "./components/HeroSection";
 import RegistrationForm from "./components/RegistrationForm";
+import { FellowshipsSection } from "./components/MarqueeSection";
+import GallerySection from "./components/GallerySection";
+import Footer from "./components/Footer";
 
 // --- Main Page Component ---
+
+const contact = {
+    name: "General Secretary, RCF FUTA",
+    phone: "+234 810 484 5204",
+};
 
 export default function CLT2025Experience() {
     const { scrollYProgress } = useScroll();
@@ -90,7 +98,7 @@ export default function CLT2025Experience() {
                             smooth={true}
                             className="transform rounded-full bg-slate-900 px-6 py-2.5 text-sm font-medium text-white shadow-lg shadow-slate-900/20 transition-all hover:-translate-y-0.5 hover:bg-slate-800 hover:shadow-slate-900/30"
                         >
-                            Get Ticket
+                            Register
                         </ScrollLink>
                     </div>
 
@@ -288,36 +296,8 @@ export default function CLT2025Experience() {
             </section>
 
             {/* --- Gallery / Marquee Section --- */}
-            <section
-                id="gallery"
-                className="overflow-hidden bg-slate-900 py-24 text-white"
-            >
-                <div className="mb-12 text-center">
-                    <h2 className="mb-4 text-3xl font-bold">
-                        Moments of Impact
-                    </h2>
-                    <p className="text-slate-400">
-                        Sights from previous Zonal meetings
-                    </p>
-                </div>
-
-                {/* Marquee Effect */}
-                <div className="animate-scroll flex gap-6 overflow-x-hidden px-4 whitespace-nowrap">
-                    {/* We render placeholders twice for infinite scroll loop effect */}
-                    {[1, 2, 3, 4, 5, 1, 2, 3, 4, 5].map((item, i) => (
-                        <div
-                            key={i}
-                            className="inline-block w-[300px] flex-shrink-0"
-                        >
-                            <ImagePlaceholder
-                                text={`Memory ${item}`}
-                                height="h-64"
-                                className="rounded-xl border-slate-700 bg-slate-800 text-slate-500"
-                            />
-                        </div>
-                    ))}
-                </div>
-            </section>
+            <GallerySection />
+            <FellowshipsSection />
 
             {/* --- Schedule Section --- */}
             <section id="schedule" className="bg-slate-50 py-24">
@@ -400,81 +380,7 @@ export default function CLT2025Experience() {
             </section>
 
             {/* --- Footer --- */}
-            <footer className="border-t border-slate-800 bg-slate-950 py-16 text-slate-400">
-                <div className="mx-auto grid max-w-7xl gap-12 px-4 md:grid-cols-4">
-                    <div className="col-span-2">
-                        <h3 className="mb-4 text-xl font-bold text-white">
-                            CRM Ondo Zone
-                        </h3>
-                        <p className="mb-6 max-w-sm">
-                            Raising men and women of stature who will take over
-                            the mountaintops of influence for the Kingdom of
-                            God.
-                        </p>
-                        <div className="flex gap-4">
-                            {/* Social Placeholders */}
-                            <div className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-slate-800 transition-colors hover:bg-green-600">
-                                IG
-                            </div>
-                            <div className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-slate-800 transition-colors hover:bg-green-600">
-                                FB
-                            </div>
-                            <div className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-slate-800 transition-colors hover:bg-green-600">
-                                X
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <h4 className="mb-4 font-bold text-white">
-                            Quick Links
-                        </h4>
-                        <ul className="space-y-2">
-                            <li>
-                                <a
-                                    href="#"
-                                    className="transition-colors hover:text-white"
-                                >
-                                    About CRM
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    className="transition-colors hover:text-white"
-                                >
-                                    RCF Chapters
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    className="transition-colors hover:text-white"
-                                >
-                                    Statement of Faith
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 className="mb-4 font-bold text-white">Contact</h4>
-                        <ul className="space-y-2 text-sm">
-                            <li className="flex items-start gap-2">
-                                <MapPin className="mt-1 h-4 w-4" /> RCF FUTA
-                                Secretariat, Obanla, Akure.
-                            </li>
-                            <li className="flex items-center gap-2">
-                                <Users className="h-4 w-4" /> +234 800 000 0000
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div className="mx-auto mt-12 max-w-7xl border-t border-slate-800 px-4 pt-8 text-center text-sm">
-                    &copy; 2025 Christ Redeemer&#39;s Ministries. Powered by RCF
-                    FUTA ICT Team.
-                </div>
-            </footer>
+            <Footer />
         </main>
     );
 }
-
-// --- Sub Components ---
