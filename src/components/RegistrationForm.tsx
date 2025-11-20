@@ -278,7 +278,7 @@ export default function RegistrationForm() {
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
                     <label className={labelClass}>Gender</label>
                     <div className="flex gap-4">
@@ -292,7 +292,7 @@ export default function RegistrationForm() {
                                     name="gender"
                                     value={g}
                                     required
-                                    className="accent-green-600"
+                                    className="h-4 w-4 accent-green-600" // Added explicit size for better touch
                                 />
                                 <span className="text-sm font-medium">{g}</span>
                             </label>
