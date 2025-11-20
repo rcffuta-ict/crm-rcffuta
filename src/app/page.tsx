@@ -1,44 +1,17 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import Image from "next/image";
-import {
-    motion,
-    useScroll,
-    useTransform,
-    useSpring,
-    AnimatePresence,
-} from "framer-motion";
-import {
-    Calendar,
-    MapPin,
-    ChevronRight,
-    CheckCircle2,
-    Loader2,
-    Users,
-    Mic2,
-    Image as ImageIcon,
-    ArrowDown,
-    Menu,
-    X,
-} from "lucide-react";
-import { Toaster, toast } from "sonner";
-import { Link as ScrollLink } from "react-scroll";
+import { useState } from "react";
+import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
+import { Users, Mic2, Menu, X } from "lucide-react";
 
-import { ImagePlaceholder } from "./components/common/ImageDisplay";
-import SectionHeading from "./components/common/SectionHeading";
-import HeroSection from "./components/HeroSection";
-import RegistrationForm from "./components/RegistrationForm";
-import { FellowshipsSection } from "./components/MarqueeSection";
-import GallerySection from "./components/GallerySection";
-import Footer from "./components/Footer";
-
-// --- Main Page Component ---
-
-const contact = {
-    name: "General Secretary, RCF FUTA",
-    phone: "+234 810 484 5204",
-};
+import { ImagePlaceholder } from "../components/common/ImageDisplay";
+import SectionHeading from "../components/common/SectionHeading";
+import HeroSection from "../components/HeroSection";
+import RegistrationForm from "../components/RegistrationForm";
+import { FellowshipsSection } from "../components/MarqueeSection";
+import GallerySection from "../components/GallerySection";
+import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 export default function CLT2025Experience() {
     const { scrollYProgress } = useScroll();
@@ -48,101 +21,15 @@ export default function CLT2025Experience() {
         restDelta: 0.001,
     });
 
-    const [isNavOpen, setIsNavOpen] = useState(false);
-
     return (
         <main className="min-h-screen overflow-x-hidden bg-white font-sans text-slate-900 selection:bg-green-200 selection:text-green-900">
-            <Toaster position="top-center" richColors />
-
             {/* Progress Bar */}
             <motion.div
                 className="fixed top-0 right-0 left-0 z-[60] h-1 origin-left bg-green-600"
                 style={{ scaleX }}
             />
 
-            {/* --- Navigation --- */}
-            <nav className="fixed top-0 z-50 w-full border-b border-slate-200/50 bg-white/80 backdrop-blur-md transition-all duration-300 supports-[backdrop-filter]:bg-white/60">
-                <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-                    <div className="flex items-center gap-3">
-                        <div className="relative flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-green-600 to-green-800 font-bold text-white shadow-lg shadow-green-700/20">
-                            CRM
-                        </div>
-                        <div className="mx-1 hidden h-8 w-[1px] bg-slate-300 md:block"></div>
-                        <div className="flex flex-col">
-                            <span className="leading-none font-bold text-slate-900">
-                                CLT 2025
-                            </span>
-                            <span className="text-xs font-medium tracking-wider text-slate-500 uppercase">
-                                Ondo Zone
-                            </span>
-                        </div>
-                    </div>
-
-                    {/* Desktop Menu */}
-                    <div className="hidden items-center gap-8 md:flex">
-                        {["About", "Speakers", "Gallery", "Schedule"].map(
-                            (item) => (
-                                <ScrollLink
-                                    key={item}
-                                    to={item.toLowerCase()}
-                                    smooth={true}
-                                    offset={-100}
-                                    className="cursor-pointer text-sm font-medium text-slate-600 transition-colors hover:text-green-700"
-                                >
-                                    {item}
-                                </ScrollLink>
-                            ),
-                        )}
-                        <ScrollLink
-                            to="register"
-                            smooth={true}
-                            className="transform rounded-full bg-slate-900 px-6 py-2.5 text-sm font-medium text-white shadow-lg shadow-slate-900/20 transition-all hover:-translate-y-0.5 hover:bg-slate-800 hover:shadow-slate-900/30"
-                        >
-                            Register
-                        </ScrollLink>
-                    </div>
-
-                    {/* Mobile Toggle */}
-                    <button
-                        onClick={() => setIsNavOpen(!isNavOpen)}
-                        className="p-2 text-slate-600 md:hidden"
-                    >
-                        {isNavOpen ? <X /> : <Menu />}
-                    </button>
-                </div>
-
-                {/* Mobile Menu */}
-                <AnimatePresence>
-                    {isNavOpen && (
-                        <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            className="overflow-hidden border-b border-slate-200 bg-white md:hidden"
-                        >
-                            <div className="flex flex-col space-y-4 px-4 py-6">
-                                {[
-                                    "About",
-                                    "Speakers",
-                                    "Gallery",
-                                    "Schedule",
-                                    "Register",
-                                ].map((item) => (
-                                    <ScrollLink
-                                        key={item}
-                                        to={item.toLowerCase()}
-                                        smooth={true}
-                                        onClick={() => setIsNavOpen(false)}
-                                        className="border-b border-slate-100 py-2 text-lg font-medium text-slate-800"
-                                    >
-                                        {item}
-                                    </ScrollLink>
-                                ))}
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </nav>
+            <Header />
 
             {/* --- Hero Section with Parallax --- */}
             <HeroSection />
@@ -241,7 +128,7 @@ export default function CLT2025Experience() {
             </section>
 
             {/* --- Speakers Section --- */}
-            <section id="speakers" className="py-24">
+            <section id="ministers" className="py-24">
                 <div className="mx-auto max-w-7xl px-4">
                     <SectionHeading
                         title="Ministering Vessels"
@@ -378,9 +265,6 @@ export default function CLT2025Experience() {
                     </div>
                 </div>
             </section>
-
-            {/* --- Footer --- */}
-            <Footer />
         </main>
     );
 }

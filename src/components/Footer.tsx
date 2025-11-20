@@ -1,12 +1,11 @@
 import {
     Instagram,
     Facebook,
-    Twitter,
     MapPin,
     Phone,
     Mail,
     ExternalLink,
-    Heart,
+    AtSign,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -39,7 +38,7 @@ export default function Footer() {
                         />
                         <SocialLink
                             href="#"
-                            icon={<Twitter className="h-5 w-5" />}
+                            icon={<AtSign className="h-5 w-5" />}
                         />
                     </div>
                 </div>
@@ -88,8 +87,9 @@ export default function Footer() {
                                     RCF FUTA Secretariat
                                 </span>
                                 <span className="mt-1 block">
-                                    Obanla, FUTA South Gate, <br />
-                                    Akure, Ondo State.
+                                    Besides His Grace Pavilion, FUTA Southgate,
+                                    <br />
+                                    Akure, Ondo State, Nigeria.
                                 </span>
                                 <a
                                     href="https://maps.google.com"
