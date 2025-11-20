@@ -40,14 +40,51 @@ export default function RegistrationForm() {
         setIsLoading(true);
         try {
             const result = await submitRegistration(formData);
+
             if (result.success) {
-                setTicketData(result.data); // Save the actual data returned from DB
+                // 1. Success Case
+                setTicketData(result.data);
                 toast.success(result.message);
             } else {
-                toast.error(result.message);
+                // 2. Validation Error Case (Zod)
+                if (result.errors) {
+                    // Format validation errors into a readable list
+                    // e.g. "Phone Number: Invalid format"
+                    const errorDetails = Object.entries(result.errors)
+                        .map(([field, messages]) => {
+                            // Make field name readable (e.g., phoneNumber -> Phone Number)
+                            const readableField = field
+                                .replace(/([A-Z])/g, " $1")
+                                .replace(/^./, (str) => str.toUpperCase());
+
+                            // Combine messages
+                            const messageText = Array.isArray(messages)
+                                ? messages.join(", ")
+                                : messages;
+
+                            return `• ${readableField}: ${messageText}`;
+                        })
+                        .join("\n");
+
+                    toast.error("Validation Failed", {
+                        description: errorDetails,
+                        duration: 5000, // Keep it visible longer so they can read
+                        style: { whiteSpace: "pre-line" }, // Ensure newlines render
+                    });
+                } else {
+                    // 3. Generic Server Error (e.g. "Failed to save")
+                    toast.error("Registration Failed", {
+                        description: result.message,
+                    });
+                }
             }
         } catch (e) {
-            toast.error("Something went wrong.");
+            // 4. Network or Crash Errors
+            console.error("Submission error:", e);
+            toast.error("Connection Error", {
+                description:
+                    "Please check your internet connection and try again.",
+            });
         } finally {
             setIsLoading(false);
         }
