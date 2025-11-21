@@ -358,7 +358,7 @@ export default function AdminDashboard() {
                                         <div
                                             className={`h-full rounded-full ${i === 0 ? "bg-green-500" : "bg-slate-900"}`}
                                             style={{
-                                                width: `${(chap.count / stats.chapterStats[0].count) * 100}%`,
+                                                width: `${(chap.count / stats.chapterStats[0]?.count) * 100}%`,
                                             }}
                                         ></div>
                                     </div>
@@ -443,7 +443,7 @@ export default function AdminDashboard() {
                                     </div>
                                     <p className="text-right text-xs text-slate-400">
                                         Total registered:{" "}
-                                        {stats.chapterStats[0].count || 0}
+                                        {stats.chapterStats[0]?.count || 0}
                                     </p>
                                 </div>
                             </div>
