@@ -17,13 +17,13 @@ const geistMono = Geist_Mono({
 });
 
 const SITE_URL =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://clt-2025.vercel.app";
+    process.env.NEXT_PUBLIC_SITE_URL || "https://clt.rcffuta.com";
 
 export const viewport: Viewport = {
-    themeColor: "#16a34a", // Green-600 matching CRM brand
+    themeColor: "#16a34a",
     width: "device-width",
     initialScale: 1,
-    maximumScale: 1, // Prevents auto-zoom on inputs on iOS
+    maximumScale: 1,
 };
 
 export const metadata: Metadata = {
