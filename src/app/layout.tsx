@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 const SITE_URL =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://clt-rcffuta.vercel.app";
+    process.env.NEXT_PUBLIC_SITE_URL || "https://clt-2025.vercel.app";
 
 export const viewport: Viewport = {
     themeColor: "#16a34a", // Green-600 matching CRM brand
@@ -43,31 +43,7 @@ export const metadata: Metadata = {
         "FUTA",
     ],
     authors: [{ name: "RCF FUTA ICT Team", url: "https://ict.rcffuta.com" }],
-    creator: "Christ Redeemer's Ministries",
-    openGraph: {
-        type: "website",
-        locale: "en_NG",
-        url: SITE_URL,
-        title: "Campus Leadership Training 2025",
-        description:
-            "Equipping the stewards of God's heritage for maximum impact. Register now for the largest gathering of campus leaders in Ondo Zone.",
-        siteName: "CRM CLT 2025",
-        images: [
-            {
-                url: "/images/og-image.jpg", // You must create this image
-                width: 1200,
-                height: 630,
-                alt: "CLT 2025 Event Banner",
-            },
-        ],
-    },
-    twitter: {
-        card: "summary_large_image",
-        title: "Campus Leadership Training 2025",
-        description: "Equipping leaders for Kingdom Impact. Join us at FUTA.",
-        images: ["/images/og-image.jpg"], // Same image as OG
-        creator: "@rcffuta", // Replace with actual handle if available
-    },
+    creator: "The Redeemed Christian Fellowship FUTA Chapter",
     icons: {
         icon: "/favicon.ico",
         shortcut: "/favicon-16x16.png",

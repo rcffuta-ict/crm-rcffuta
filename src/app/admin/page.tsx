@@ -4,7 +4,6 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { getAdminData } from "@/actions/admin.action"; // Ensure path is correct
 import { fellowships } from "@/data/fellowships";
-import { createClient } from "@supabase/supabase-js";
 import {
     Loader2,
     Users,
@@ -16,17 +15,13 @@ import {
     RefreshCcw,
     ArrowUpRight,
     Briefcase,
-    ChevronLeft,
-    ChevronRight,
     Clock,
 } from "lucide-react";
 import { toast } from "sonner";
+import { initSupabase } from "@/lib/supabase";
 
 // --- INITIALIZE SUPABASE CLIENT (For Realtime Listening Only) ---
-const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-);
+const supabase = initSupabase();
 
 // --- TYPES ---
 type Registration = {
