@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { initSupabase } from "@/lib/supabase";
-// import { createClient } from "@supabase/supabase-js";
 import {
     CheckCircle2,
     Clock,
@@ -10,7 +9,6 @@ import {
     XCircle,
 } from "lucide-react";
 import Link from "next/link";
-// import { notFound } from "next/navigation";
 
 export default async function AttendeePage({
     params,
@@ -42,16 +40,14 @@ export default async function AttendeePage({
     return (
         <main className="flex min-h-screen flex-col items-center justify-center bg-slate-50 p-4">
             <div className="w-full max-w-md overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-2xl">
-                {/* Header Status */}
-                <div className="relative overflow-hidden bg-green-600 p-8 text-center text-white">
+                {/* Header Status - Gold/Amber Gradient */}
+                <div className="relative overflow-hidden bg-gradient-to-br from-amber-500 to-amber-600 p-8 text-center text-white">
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/20 to-transparent"></div>
                     <MotionCheckMark />
                     <h1 className="mt-4 text-2xl font-bold">
                         Verified Attendee
                     </h1>
-                    <p className="text-green-100 opacity-90">
-                        Campus Leadership Training 2025
-                    </p>
+                    <p className="text-amber-100 opacity-90">The Mantle 2025</p>
                 </div>
 
                 {/* User Details */}
@@ -60,7 +56,7 @@ export default async function AttendeePage({
                         <h2 className="text-2xl font-bold text-slate-900">
                             {attendee.full_name}
                         </h2>
-                        <span className="mt-2 inline-block rounded-full bg-green-100 px-3 py-1 text-xs font-bold tracking-wider text-green-700 uppercase">
+                        <span className="mt-2 inline-block rounded-full bg-amber-100 px-3 py-1 text-xs font-bold tracking-wider text-amber-700 uppercase">
                             {attendee.category}
                         </span>
                     </div>
@@ -88,7 +84,7 @@ export default async function AttendeePage({
                         />
                     </div>
 
-                    {/* Metadata for Admin (Hidden from plain view usually, but good for ICT) */}
+                    {/* Metadata for Admin */}
                     <div className="border-t border-slate-100 pt-6">
                         <p className="text-center font-mono text-xs text-slate-400">
                             UUID: {attendee.id}
@@ -100,7 +96,7 @@ export default async function AttendeePage({
                 <div className="flex justify-center border-t border-slate-100 bg-slate-50 p-4">
                     <Link
                         href="/"
-                        className="text-sm font-semibold text-slate-600 transition-colors hover:text-green-600"
+                        className="text-sm font-semibold text-slate-600 transition-colors hover:text-amber-600"
                     >
                         Back to Home
                     </Link>
@@ -122,7 +118,7 @@ function DetailItem({
     value: string;
 }) {
     return (
-        <div className="flex items-center gap-4 rounded-xl p-3 transition-colors hover:bg-slate-50">
+        <div className="flex items-center gap-4 rounded-xl p-3 transition-colors hover:bg-amber-50/50">
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-500">
                 <Icon className="h-5 w-5" />
             </div>
@@ -156,10 +152,9 @@ function InvalidID() {
     );
 }
 
-// Simple server-side animation placeholder
 function MotionCheckMark() {
     return (
-        <div className="mx-auto flex h-16 w-16 animate-[bounce_1s_infinite] items-center justify-center rounded-full bg-white text-green-600 shadow-lg">
+        <div className="mx-auto flex h-16 w-16 animate-[bounce_1s_infinite] items-center justify-center rounded-full bg-white text-amber-600 shadow-lg">
             <CheckCircle2 className="h-8 w-8" />
         </div>
     );
