@@ -337,7 +337,7 @@ export default function RegistrationForm() {
                     disabled={!selectedChapter}
                     className={`${inputClass} disabled:cursor-not-allowed disabled:opacity-50`}
                 >
-                    <option value="" disabled selected>
+                    <option value="" disabled defaultValue={""}>
                         {!selectedChapter
                             ? "Select a chapter first"
                             : "Select your unit"}

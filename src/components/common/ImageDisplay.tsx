@@ -1,5 +1,6 @@
 import { Image as ImageIcon } from "lucide-react";
 import Image from "next/image";
+import clsx from "clsx";
 
 export const ImagePlaceholder = ({
     text,
@@ -21,7 +22,7 @@ export const ImagePlaceholder = ({
 );
 
 type Props = {
-    src: string;
+    src?: string;
     alt: string;
     height?: string;
     className?: string;
@@ -38,8 +39,16 @@ export default function ImageDisplay({ src, alt, height, className }: Props) {
         );
     }
 
+    const cls = height || "h-64";
+
     return (
-        <div className="relative h-64 w-full overflow-hidden rounded-tr-[3rem]">
+        <div
+            className={clsx(
+                "relative w-full overflow-hidden rounded-tr-[3rem]",
+                className,
+                cls,
+            )}
+        >
             <Image src={src} alt={alt} fill className="object-cover" />
         </div>
     );

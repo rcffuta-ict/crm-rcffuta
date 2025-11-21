@@ -4,7 +4,9 @@ import { useState } from "react";
 import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
 import { Users, Mic2, Menu, X } from "lucide-react";
 
-import { ImagePlaceholder } from "../components/common/ImageDisplay";
+import ImageDisplay, {
+    ImagePlaceholder,
+} from "../components/common/ImageDisplay";
 import SectionHeading from "../components/common/SectionHeading";
 import HeroSection from "../components/HeroSection";
 import RegistrationForm from "../components/RegistrationForm";
@@ -12,6 +14,7 @@ import { FellowshipsSection } from "../components/MarqueeSection";
 import GallerySection from "../components/GallerySection";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import { ministers } from "@/data/ministers";
 
 export default function CLT2025Experience() {
     const { scrollYProgress } = useScroll();
@@ -136,23 +139,7 @@ export default function CLT2025Experience() {
                     />
 
                     <div className="grid gap-8 md:grid-cols-3">
-                        {[
-                            {
-                                role: "Zonal Coordinator",
-                                name: "Pst. [Name]",
-                                color: "bg-blue-50",
-                            },
-                            {
-                                role: "Guest Minister",
-                                name: "Pst. [Name]",
-                                color: "bg-green-50",
-                            },
-                            {
-                                role: "Host President",
-                                name: "Bro. [Name]",
-                                color: "bg-amber-50",
-                            },
-                        ].map((speaker, i) => (
+                        {ministers.map((speaker, i) => (
                             <motion.div
                                 key={i}
                                 initial={{ opacity: 0, y: 30 }}
@@ -162,8 +149,9 @@ export default function CLT2025Experience() {
                                 className="group relative"
                             >
                                 <div className="overflow-hidden rounded-2xl">
-                                    <ImagePlaceholder
-                                        text={`${speaker.name} Photo`}
+                                    <ImageDisplay
+                                        alt={`${speaker.name} Photo`}
+                                        src={speaker.picture}
                                         height="h-96"
                                         className="transition-transform duration-500 group-hover:scale-105"
                                     />
