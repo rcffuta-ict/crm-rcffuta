@@ -85,7 +85,7 @@ export default function RegistrationForm() {
             const dataUrl = await toPng(ticketRef.current, {
                 quality: 1.0,
                 pixelRatio: 3,
-                backgroundColor: "transparent", // Transparent for rounded corners
+                backgroundColor: "white", // Transparent for rounded corners
                 skipFonts: true,
             });
 
