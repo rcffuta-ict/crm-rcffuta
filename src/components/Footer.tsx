@@ -13,7 +13,7 @@ import Link from "next/link";
 export default function Footer() {
     return (
         <footer className="border-t border-white/10 bg-slate-950 pt-20 pb-10 text-slate-400">
-            <div className="mx-auto grid max-w-7xl gap-12 px-4 md:grid-cols-2 lg:grid-cols-4">
+            <div className="mx-auto grid max-w-7xl gap-12 px-4 md:grid-cols-2 lg:grid-cols-3">
                 {/* --- Column 1: Brand & Mission --- */}
                 <div className="col-span-1 md:col-span-2 lg:col-span-1">
                     <div className="mb-6 flex items-center gap-3">
@@ -68,7 +68,7 @@ export default function Footer() {
                 </div>
 
                 {/* --- Column 3: Resources --- */}
-                <div>
+                {/* <div>
                     <h4 className="mb-6 text-sm font-bold tracking-wide text-white uppercase">
                         Resources
                     </h4>
@@ -78,7 +78,7 @@ export default function Footer() {
                         <FooterLink href="#" text="Past Messages" />
                         <FooterLink href="#" text="Partner with Us" />
                     </ul>
-                </div>
+                </div> */}
 
                 {/* --- Column 4: Contact & Location --- */}
                 <div>

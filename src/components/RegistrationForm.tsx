@@ -11,7 +11,27 @@ import { submitRegistration } from "@/actions/form.action";
 import { unslugify } from "@/lib/function";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
+// Helper component for consistent labels with required indicator
+const FormLabel = ({
+    children,
+    required,
+}: {
+    children: React.ReactNode;
+    required?: boolean;
+}) => (
+    <label className="mb-2 block text-sm text-xs font-bold tracking-wide text-slate-700 uppercase">
+        {children}
+        {required && (
+            <span className="ml-1 text-red-500" title="Required">
+                *
+            </span>
+        )}
+    </label>
+);
+
 export default function RegistrationForm() {
+    const [category, setCategory] = useState("Student"); // Default to Student
     const [selectedChapter, setSelectedChapter] = useState("");
     const [units, setUnits] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -30,12 +50,38 @@ export default function RegistrationForm() {
 
     async function handleSubmit(formData: FormData) {
         setIsLoading(true);
+
+        toast.loading("Submitting form...", {
+            id: "submission",
+        });
+
+        // --- LOGIC CORRECTION FOR SERVER VALIDATION ---
+        // Since we are hiding fields in the UI, we must ensure the server
+        // receives valid data to pass the Zod schema.
+
+        const currentCategory = formData.get("category") as string;
+
+        // 1. Handle Unit (If not a student, set unit to "N/A")
+        if (currentCategory !== "Student") {
+            formData.set("unit", "N/A");
+        }
+
+        // 2. Handle Fellowship (If Guest and empty, set to "guest" or "N/A")
+        const fellowship = formData.get("chapter");
+        if (currentCategory === "Guest" && (!fellowship || fellowship === "")) {
+            // Assuming your 'fellowships' data has an ID for 'guest' or 'other'.
+            // If not, use the first available or a specific string string your DB accepts.
+            formData.set("chapter", "guest");
+        }
+
         try {
             const result = await submitRegistration(formData);
 
             if (result.success) {
                 setTicketData(result.data);
-                toast.success(result.message);
+                toast.success(result.message, {
+                    id: "submission",
+                });
             } else {
                 if (result.errors) {
                     const errorDetails = Object.entries(result.errors)
@@ -52,13 +98,15 @@ export default function RegistrationForm() {
                         })
                         .join("\n");
 
-                    toast.error("Validation Failed", {
+                    toast.error("Please fix the following:", {
                         description: errorDetails,
-                        duration: 5000,
+                        duration: 6000,
                         style: { whiteSpace: "pre-line" },
+                        id: "submission",
                     });
                 } else {
                     toast.error("Registration Failed", {
+                        id: "submission",
                         description: result.message,
                     });
                 }
@@ -66,6 +114,7 @@ export default function RegistrationForm() {
         } catch (e) {
             console.error("Submission error:", e);
             toast.error("Connection Error", {
+                id: "submission",
                 description:
                     "Please check your internet connection and try again.",
             });
@@ -85,7 +134,7 @@ export default function RegistrationForm() {
             const dataUrl = await toPng(ticketRef.current, {
                 quality: 1.0,
                 pixelRatio: 3,
-                backgroundColor: "white", // Transparent for rounded corners
+                backgroundColor: "white",
                 skipFonts: true,
             });
 
@@ -105,7 +154,7 @@ export default function RegistrationForm() {
         }
     };
 
-    // --- SUCCESS STATE: THE GOLDEN TICKET VIEW ---
+    // --- SUCCESS STATE ---
     if (ticketData) {
         const verificationUrl = `${window.location.origin}/attendees/${ticketData.id}`;
 
@@ -133,7 +182,6 @@ export default function RegistrationForm() {
                         ref={ticketRef}
                         className="relative w-[320px] overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl"
                     >
-                        {/* Decorative Header (Dark + Gold) */}
                         <div className="relative flex h-24 items-center justify-center overflow-hidden bg-slate-900">
                             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-amber-500 to-transparent opacity-30"></div>
                             <div className="text-center">
@@ -145,20 +193,15 @@ export default function RegistrationForm() {
                                 </p>
                             </div>
                         </div>
-
-                        {/* Hole Punch */}
                         <div className="absolute top-20 left-1/2 z-20 h-4 w-4 -translate-x-1/2 rounded-full border border-slate-200 bg-slate-50"></div>
 
-                        {/* Content */}
                         <div className="px-6 pt-8 pb-6 text-center">
                             <span className="mb-3 inline-block rounded-full bg-amber-100 px-3 py-1 text-xs font-bold tracking-wider text-amber-700 uppercase">
                                 {ticketData.category}
                             </span>
-
                             <h2 className="mb-1 truncate text-2xl leading-tight font-bold text-slate-900">
                                 {ticketData.full_name}
                             </h2>
-
                             <p className="mb-6 truncate text-sm font-medium text-slate-500">
                                 {unslugify(ticketData.chapter)}
                             </p>
@@ -183,7 +226,6 @@ export default function RegistrationForm() {
                                 </div>
                             </div>
 
-                            {/* QR Code */}
                             <div className="flex flex-col items-center justify-center gap-2">
                                 <div className="rounded-xl border border-slate-200 bg-white p-2 shadow-sm">
                                     <QRCodeSVG
@@ -198,13 +240,10 @@ export default function RegistrationForm() {
                                 </p>
                             </div>
                         </div>
-
-                        {/* Footer Strip (Gold Gradient) */}
                         <div className="h-3 bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500"></div>
                     </div>
                 </div>
 
-                {/* --- Actions --- */}
                 <div className="mt-8 flex w-full max-w-[320px] gap-4">
                     <button
                         onClick={handleDownloadTicket}
@@ -228,24 +267,32 @@ export default function RegistrationForm() {
     // --- FORM RENDER ---
     const inputClass =
         "w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 outline-none transition-all font-medium text-slate-800 placeholder:text-slate-400";
-    const labelClass =
-        "block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide text-xs";
 
     return (
         <form action={handleSubmit} className="space-y-8">
-            <div className="grid gap-6 md:grid-cols-2">
+            <div className="space-y-6">
                 <div>
-                    <label className={labelClass}>Full Name</label>
+                    <FormLabel required>Full Name</FormLabel>
                     <input
                         name="fullName"
                         required
                         type="text"
-                        placeholder="Surname Firstname"
+                        placeholder="Surname and Firstname"
                         className={inputClass}
                     />
                 </div>
                 <div>
-                    <label className={labelClass}>Phone Number</label>
+                    <FormLabel required>Email Address</FormLabel>
+                    <input
+                        name="email"
+                        required
+                        type="email"
+                        placeholder="you@example.com"
+                        className={inputClass}
+                    />
+                </div>
+                <div>
+                    <FormLabel required>Phone Number</FormLabel>
                     <input
                         name="phoneNumber"
                         required
@@ -258,7 +305,7 @@ export default function RegistrationForm() {
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
-                    <label className={labelClass}>Gender</label>
+                    <FormLabel required>Gender</FormLabel>
                     <div className="flex gap-4">
                         {["Male", "Female"].map((g) => (
                             <label
@@ -277,9 +324,23 @@ export default function RegistrationForm() {
                         ))}
                     </div>
                 </div>
+
+                {/* Category Selection */}
                 <div>
-                    <label className={labelClass}>Category</label>
-                    <select name="category" required className={inputClass}>
+                    <FormLabel required>Category</FormLabel>
+                    <select
+                        name="category"
+                        required
+                        className={inputClass}
+                        value={category}
+                        onChange={(e) => {
+                            setCategory(e.target.value);
+                            // If switching away from Student, check logic for other fields
+                            if (e.target.value !== "Student") {
+                                // Optional: Clear unit or chapter if needed
+                            }
+                        }}
+                    >
                         <option value="Student">Student</option>
                         <option value="Alumni">Alumni</option>
                         <option value="Guest">Guest</option>
@@ -288,16 +349,23 @@ export default function RegistrationForm() {
             </div>
 
             <div>
-                <label className={labelClass}>Fellowship Chapter</label>
+                {/* Fellowship Logic:
+                    - Student/Alumni: Required
+                    - Guest: Optional
+                 */}
+                <FormLabel required={category !== "Guest"}>
+                    Fellowship Chapter
+                </FormLabel>
                 <select
                     name="chapter"
-                    required
+                    required={category !== "Guest"} // Only required if NOT Guest
                     value={selectedChapter}
                     onChange={(e) => setSelectedChapter(e.target.value)}
                     className={inputClass}
                 >
                     <option value="" disabled>
-                        Select your chapter
+                        Select your chapter{" "}
+                        {category === "Guest" && "(Optional)"}
                     </option>
                     {fellowships.map((f: any) => (
                         <option key={f.id} value={f.id}>
@@ -307,29 +375,36 @@ export default function RegistrationForm() {
                 </select>
             </div>
 
-            <div>
-                <label className={labelClass}>Unit / Department</label>
-                <select
-                    name="unit"
-                    required
-                    disabled={!selectedChapter}
-                    className={`${inputClass} disabled:cursor-not-allowed disabled:opacity-50`}
+            {/* Unit Logic: Only show for Students */}
+            {category === "Student" && (
+                <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
                 >
-                    <option value="" disabled defaultValue={""}>
-                        {!selectedChapter
-                            ? "Select a chapter first"
-                            : "Select your unit"}
-                    </option>
-                    {units.map((u) => (
-                        <option key={u} value={u}>
-                            {u}
+                    <FormLabel required>Unit / Department</FormLabel>
+                    <select
+                        name="unit"
+                        required
+                        disabled={!selectedChapter}
+                        className={`${inputClass} disabled:cursor-not-allowed disabled:opacity-50`}
+                    >
+                        <option value="" disabled defaultValue={""}>
+                            {!selectedChapter
+                                ? "Select a chapter first"
+                                : "Select your unit"}
                         </option>
-                    ))}
-                </select>
-            </div>
+                        {units.map((u) => (
+                            <option key={u} value={u}>
+                                {u}
+                            </option>
+                        ))}
+                    </select>
+                </motion.div>
+            )}
 
             <div>
-                <label className={labelClass}>Expectations</label>
+                <FormLabel>Expectations</FormLabel>
                 <textarea
                     name="expectations"
                     rows={3}

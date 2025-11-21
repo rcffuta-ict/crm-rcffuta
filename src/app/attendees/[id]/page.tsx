@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { unslugify } from "@/lib/function";
 import { initSupabase } from "@/lib/supabase";
 import {
     CheckCircle2,
@@ -65,7 +66,7 @@ export default async function AttendeePage({
                         <DetailItem
                             icon={ShieldCheck}
                             label="Chapter"
-                            value={attendee.chapter}
+                            value={unslugify(attendee.chapter)}
                         />
                         <DetailItem
                             icon={User}
