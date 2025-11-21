@@ -10,7 +10,6 @@ import SectionHeading from "../components/common/SectionHeading";
 import HeroSection from "../components/HeroSection";
 import RegistrationForm from "../components/RegistrationForm";
 import { FellowshipsSection } from "../components/MarqueeSection";
-import GallerySection from "../components/GallerySection";
 
 import Header from "../components/Header";
 import { ministers } from "@/data/ministers";
@@ -194,43 +193,43 @@ export default function CLT2025Experience() {
                     <div className="space-y-4">
                         {[
                             {
-                                time: "09:00 AM",
+                                time: "1 -",
                                 activity: "Opening Prayer & Worship",
                                 desc: "Praise, Introductions, and Special Welcome",
                                 icon: Music,
                             },
                             {
-                                time: "10:00 AM",
+                                time: "12 -",
                                 activity: "Word Session I",
                                 desc: "The First Charge",
                                 icon: BookOpen,
                             },
                             {
-                                time: "11:00 AM",
+                                time: "3 -",
                                 activity: "Creative Ministrations",
                                 desc: "Drama Presentation & Prayer Charge",
                                 icon: Zap,
                             },
                             {
-                                time: "12:00 PM",
+                                time: "4 -",
                                 activity: "Word Session II",
                                 desc: "The Second Charge & Prayer",
                                 icon: BookOpen,
                             },
                             {
-                                time: "01:00 PM",
+                                time: "5 -",
                                 activity: "Word Session III",
                                 desc: "Choir Ministration & Third Charge",
                                 icon: BookOpen,
                             },
                             {
-                                time: "02:00 PM",
+                                time: "6 -",
                                 activity: "Interactive & Handover",
                                 desc: "Q&A, Offering, and Zonal Executive Handover",
                                 icon: Flag,
                             },
                             {
-                                time: "03:00 PM",
+                                time: "7 -",
                                 activity: "Thanksgiving & Benediction",
                                 desc: "Closing Praises",
                                 icon: Heart,
