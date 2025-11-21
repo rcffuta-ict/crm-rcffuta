@@ -199,7 +199,7 @@ export default function CLT2025Experience() {
                                 icon: Music,
                             },
                             {
-                                time: "12 -",
+                                time: "2 -",
                                 activity: "Word Session I",
                                 desc: "The First Charge",
                                 icon: BookOpen,
