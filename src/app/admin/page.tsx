@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect, useMemo, useRef } from "react";
-import { getAdminData } from "@/actions/admin.action"; // Ensure path is correct
+import { getAdminData } from "@/actions/admin.action";
 import { fellowships } from "@/data/fellowships";
 import {
     Loader2,
@@ -275,10 +275,17 @@ export default function AdminDashboard() {
                 <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
                     <div className="flex items-center gap-2">
                         <span className="text-xl font-bold">CLT Admin</span>
-                        <span className="flex items-center gap-1 rounded-full bg-amber-500 px-2 py-0.5 text-[10px] font-bold text-slate-900">
-                            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-slate-900"></span>
-                            LIVE
-                        </span>
+                        {process.env.NEXT_PUBLIC_APP_ACTIVE === "true" ? (
+                            <span className="flex items-center gap-1 rounded-full border border-green-500/20 bg-green-500/10 px-2 py-0.5 text-[10px] font-bold text-green-600">
+                                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-green-600"></span>
+                                LIVE
+                            </span>
+                        ) : (
+                            <span className="flex items-center gap-1 rounded-full border border-red-500/20 bg-red-500/10 px-2 py-0.5 text-[10px] font-bold text-red-600">
+                                <span className="h-1.5 w-1.5 rounded-full bg-red-600"></span>
+                                CLOSED
+                            </span>
+                        )}
                     </div>
                     <div className="flex items-center gap-3">
                         {/* Auto-Refresh Indicator */}

@@ -19,6 +19,14 @@ export async function submitRegistration(formData: FormData) {
     // 1. Initialize Admin Client (Bypasses RLS)
     const supabaseAdmin = initSupabase(true);
 
+    const isActive = process.env.NEXT_PUBLIC_APP_ACTIVE === "true";
+    if (!isActive) {
+        return {
+            success: false,
+            message: "Registration is currently closed.",
+        };
+    }
+
     const rawData = {
         fullName: formData.get("fullName"),
         email: formData.get("email"),

@@ -4,7 +4,13 @@ import { useEffect, useState, useRef } from "react";
 import { fellowships } from "@/data/fellowships";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
-import { CheckCircle2, ChevronRight, Loader2, Download } from "lucide-react";
+import {
+    CheckCircle2,
+    ChevronRight,
+    Loader2,
+    Download,
+    CalendarX,
+} from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { toPng } from "html-to-image";
 import { submitRegistration } from "@/actions/form.action";
@@ -30,6 +36,8 @@ const FormLabel = ({
     </label>
 );
 
+const isActive = process.env.NEXT_PUBLIC_APP_ACTIVE === "true";
+
 export default function RegistrationForm() {
     const [category, setCategory] = useState("Student"); // Default to Student
     const [selectedChapter, setSelectedChapter] = useState("");
@@ -40,6 +48,8 @@ export default function RegistrationForm() {
     const [ticketData, setTicketData] = useState<any>(null);
 
     const ticketRef = useRef<HTMLDivElement>(null);
+
+    // --- NO EVENT STATE ---
 
     useEffect(() => {
         const chapterData = fellowships.find(
@@ -126,7 +136,7 @@ export default function RegistrationForm() {
     const handleDownloadTicket = async () => {
         if (!ticketRef.current) return;
 
-        const toastId = toast.loading("Generating ticket...", {
+        toast.loading("Generating ticket...", {
             id: "ticketId",
         });
 
@@ -153,6 +163,28 @@ export default function RegistrationForm() {
             );
         }
     };
+
+    // --- NO EVENT STATE ---
+    if (!isActive) {
+        return (
+            <div className="flex flex-col items-center py-12 text-center">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="mb-6 rounded-full bg-slate-100 p-6 text-slate-400"
+                >
+                    <CalendarX className="h-12 w-12" />
+                </motion.div>
+                <h3 className="mb-2 text-2xl font-bold text-slate-900">
+                    Registration Closed
+                </h3>
+                <p className="mx-auto max-w-xs text-slate-600">
+                    There is no event currently scheduled. Please check back
+                    later for upcoming programs.
+                </p>
+            </div>
+        );
+    }
 
     // --- SUCCESS STATE ---
     if (ticketData) {
