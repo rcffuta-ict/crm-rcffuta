@@ -1,0 +1,103 @@
+{
+    "site": {
+        "url": "https://crm.rcffuta.com",
+        "title": "Zonal Conference | CRM x RCFFUTA",
+        "description": "Join student leaders across Ondo Zone for the Zonal Conference. A transformative convergence for spiritual empowerment, leadership training, and fellowship.",
+        "keywords": [
+            "Zonal Conference",
+            "Steadfast",
+            "CRM",
+            "RCFFUTA",
+            "Christian Conference",
+            "Leadership Training"
+        ]
+    },
+    "event": {
+        "title": "Zonal Conference",
+        "theme": "Steadfast",
+        "logo": "/images/crm/theme.jpg",
+        "subtitle": "Equipping stewards for maximum Kingdom impact.",
+        "slogan": "\"Receiving the double portion\"",
+        "date": "Coming Soon"
+    },
+    "hierarchy": ["RCCG", "CRM", "RCFFUTA"],
+    "about": {
+        "title": "About the Gathering",
+        "heading": "Forging the Next Generation of Kingdom Giants",
+        "paragraphs": [
+            "The Zonal Conference is the annual flagship convergence of the Redeemed Christian Fellowship (RCF) chapters, spearheaded by RCFFUTA.",
+            "Hosted by Christ The Redeemers Ministries (CRM), this meeting is meticulously designed to sharpen the spiritual and administrative capacity of Excos, Workers, and Volunteers."
+        ],
+        "stats": [
+            {
+                "value": "8",
+                "label": "Guest Ministers"
+            },
+            {
+                "value": "1",
+                "label": "Mighty Move of God"
+            }
+        ]
+    },
+    "ministers": [
+        {
+            "role": "Host",
+            "name": "Minister 1",
+            "color": "bg-amber-50",
+            "picture": ""
+        },
+        {
+            "role": "Guest Minister",
+            "name": "Minister 2",
+            "color": "bg-blue-50"
+        },
+        {
+            "role": "Guest Minister",
+            "name": "Minister 3",
+            "color": "bg-green-50"
+        },
+        {
+            "role": "Guest Minister",
+            "name": "Minister 4",
+            "color": "bg-purple-50"
+        },
+        {
+            "role": "Guest Minister",
+            "name": "Minister 5",
+            "color": "bg-rose-50"
+        },
+        {
+            "role": "Guest Minister",
+            "name": "Minister 6",
+            "color": "bg-teal-50"
+        },
+        {
+            "role": "Guest Minister",
+            "name": "Minister 7",
+            "color": "bg-orange-50"
+        },
+        {
+            "role": "Guest Minister",
+            "name": "Minister 8",
+            "color": "bg-indigo-50"
+        }
+    ],
+    "schedule": {
+        "isUpcoming": true,
+        "upcomingMessage": "The Order of Events is yet to be determined. Please stay tuned as we draw closer to the conference.",
+        "events": []
+    },
+    "registration": {
+        "isActive": true
+    },
+    "footer": {
+        "copyrightName": "crm-rcffuta",
+        "poweredBy": "RCF FUTA ICT Team",
+        "contact": {
+            "addressTitle": "RCF FUTA Secretariat",
+            "addressDesc": "Besides His Grace Pavilion, FUTA Southgate, Akure, Ondo State, Nigeria.",
+            "phone": "+234 810 123 4567",
+            "email": "ondocrm@gmail.com"
+        }
+    }
+}

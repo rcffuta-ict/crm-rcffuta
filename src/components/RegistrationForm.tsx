@@ -15,6 +15,7 @@ import { QRCodeSVG } from "qrcode.react";
 import { toPng } from "html-to-image";
 import { submitRegistration } from "@/actions/form.action";
 import { unslugify } from "@/lib/function";
+import config from "@/data/config.json";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -36,7 +37,7 @@ const FormLabel = ({
     </label>
 );
 
-const isActive = process.env.NEXT_PUBLIC_APP_ACTIVE === "true";
+const isActive = config.registration.isActive;
 
 export default function RegistrationForm() {
     const [category, setCategory] = useState("Student"); // Default to Student

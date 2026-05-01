@@ -2,6 +2,7 @@ import { Link as ScrollLink } from "react-scroll";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import config from "@/data/config.json";
 
 const nav = ["About", "Ministers", "Gallery", "Schedule"];
 
@@ -14,15 +15,15 @@ function Navigation() {
                 {/* --- Logo Section --- */}
                 <div className="flex items-center gap-3">
                     <div className="relative flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-green-600 to-green-800 font-bold text-white shadow-lg shadow-green-900/20">
-                        CRM
+                        {config.hierarchy[1]}
                     </div>
                     <div className="mx-1 hidden h-8 w-[1px] bg-white/20 md:block"></div>
                     <div className="flex flex-col">
                         <span className="leading-none font-bold text-white">
-                            CLT 2025
+                            {config.event.title}
                         </span>
                         <span className="text-xs font-bold tracking-wider text-amber-400 uppercase">
-                            The Mantle
+                            {config.event.theme}
                         </span>
                     </div>
                 </div>

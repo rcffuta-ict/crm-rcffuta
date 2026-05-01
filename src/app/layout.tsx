@@ -16,8 +16,9 @@ const geistMono = Geist_Mono({
     subsets: ["latin"],
 });
 
-const SITE_URL =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://clt.rcffuta.com";
+import config from "@/data/config.json";
+
+const SITE_URL = config.site.url;
 
 export const viewport: Viewport = {
     themeColor: "#16a34a",
@@ -29,22 +30,12 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
     metadataBase: new URL(SITE_URL),
     title: {
-        default: "Campus Leadership Training 2025 | CRM Ondo Zone",
-        template: "%s | CLT 2025",
+        default: config.site.title,
+        template: `%s | ${config.event.title}`,
     },
-    description:
-        "Join student leaders across Ondo Zone for CLT 2025 at FUTA. A transformative convergence for spiritual empowerment, leadership training, and fellowship.",
-    keywords: [
-        "CLT 2025",
-        "Campus Leadership Training",
-        "CRM Ondo Zone",
-        "RCF FUTA",
-        "Christian Conference",
-        "Student Leadership",
-        "Ondo State",
-        "FUTA",
-    ],
-    authors: [{ name: "RCF FUTA ICT Team", url: "https://ict.rcffuta.com" }],
+    description: config.site.description,
+    keywords: config.site.keywords,
+    authors: [{ name: config.footer.poweredBy, url: "https://ict.rcffuta.com" }],
     creator: "The Redeemed Christian Fellowship FUTA Chapter",
     icons: {
         icon: "/favicon.ico",

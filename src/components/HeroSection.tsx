@@ -3,6 +3,7 @@ import { ArrowDown, Sparkles } from "lucide-react";
 import { Link as ScrollLink } from "react-scroll";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import config from "@/data/config.json";
 
 export default function HeroSection() {
     const { scrollY } = useScroll();
@@ -74,7 +75,7 @@ export default function HeroSection() {
                     >
                         <span className="h-[1px] w-8 bg-amber-500/50"></span>
                         <span className="text-glow text-sm font-bold tracking-[0.2em] text-amber-400 uppercase md:text-base">
-                            Campus Leadership Training 2025
+                            {config.event.title}
                         </span>
                         <span className="h-[1px] w-8 bg-amber-500/50"></span>
                     </motion.div>
@@ -103,8 +104,8 @@ export default function HeroSection() {
                                 className="relative"
                             >
                                 <Image
-                                    src="/images/logos/mantle.png"
-                                    alt="The Mantle"
+                                    src={config.event.logo}
+                                    alt={config.event.theme}
                                     width={800}
                                     height={300}
                                     className="h-auto w-full object-contain drop-shadow-[0_0_30px_rgba(245,158,11,0.3)]"
@@ -122,10 +123,10 @@ export default function HeroSection() {
                         className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed font-light text-slate-200 md:text-2xl"
                     >
                         <span className="text-amber-200/80 italic">
-                            &quot;Receiving the double portion&quot;
+                            {config.event.slogan}
                         </span>
                         <br />
-                        Equipping stewards for maximum Kingdom impact.
+                        {config.event.subtitle}
                     </motion.p>
 
                     {/* Call to Action */}

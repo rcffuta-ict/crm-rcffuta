@@ -9,6 +9,7 @@ import {
     ArrowRight,
 } from "lucide-react";
 import Link from "next/link";
+import config from "@/data/config.json";
 
 export default function Footer() {
     return (
@@ -18,14 +19,14 @@ export default function Footer() {
                 <div className="col-span-1 md:col-span-2 lg:col-span-1">
                     <div className="mb-6 flex items-center gap-3">
                         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-amber-500 to-amber-700 font-bold text-white shadow-lg shadow-amber-900/20">
-                            C
+                            {config.hierarchy[1].charAt(0)}
                         </div>
                         <div className="flex flex-col">
                             <span className="text-lg leading-none font-bold tracking-tight text-white">
-                                CRM Ondo Zone
+                                {config.hierarchy[1]} x {config.hierarchy[2]}
                             </span>
                             <span className="text-[10px] font-bold tracking-widest text-amber-500 uppercase">
-                                The Mantle
+                                {config.event.theme}
                             </span>
                         </div>
                     </div>
@@ -90,12 +91,10 @@ export default function Footer() {
                             <MapPin className="h-5 w-5 shrink-0 text-amber-500" />
                             <div>
                                 <span className="block font-medium text-white">
-                                    RCF FUTA Secretariat
+                                    {config.footer.contact.addressTitle}
                                 </span>
                                 <span className="mt-1 block text-slate-400">
-                                    Besides His Grace Pavilion, FUTA Southgate,
-                                    <br />
-                                    Akure, Ondo State, Nigeria.
+                                    {config.footer.contact.addressDesc}
                                 </span>
                                 <a
                                     href="https://maps.google.com"
@@ -110,19 +109,19 @@ export default function Footer() {
                         <li className="flex items-center gap-3">
                             <Phone className="h-5 w-5 shrink-0 text-amber-500" />
                             <a
-                                href="tel:+2348000000000"
+                                href={`tel:${config.footer.contact.phone.replace(/[^0-9+]/g, "")}`}
                                 className="transition-colors hover:text-white"
                             >
-                                +234 810 123 4567
+                                {config.footer.contact.phone}
                             </a>
                         </li>
                         <li className="flex items-center gap-3">
                             <Mail className="h-5 w-5 shrink-0 text-amber-500" />
                             <a
-                                href="mailto:ondocrm@gmail.com"
+                                href={`mailto:${config.footer.contact.email}`}
                                 className="transition-colors hover:text-white"
                             >
-                                ondocrm@gmail.com
+                                {config.footer.contact.email}
                             </a>
                         </li>
                     </ul>
@@ -132,7 +131,7 @@ export default function Footer() {
             {/* --- Bottom Bar --- */}
             <div className="mx-auto mt-16 flex max-w-7xl flex-col items-center justify-between gap-4 border-t border-white/5 px-4 pt-8 text-sm md:flex-row">
                 <div className="text-slate-600">
-                    &copy; 2025 Christ Redeemer&#39;s Ministries. All rights
+                    &copy; {new Date().getFullYear()} {config.footer.copyrightName}. All rights
                     reserved.
                 </div>
 
@@ -144,7 +143,7 @@ export default function Footer() {
                         rel="noopener noreferrer"
                         className="group flex items-center gap-1.5 font-medium text-slate-400 transition-colors hover:text-amber-400"
                     >
-                        RCF FUTA ICT Team
+                        {config.footer.poweredBy}
                         <ExternalLink className="h-3 w-3 opacity-50 transition-opacity group-hover:opacity-100" />
                     </Link>
                 </div>

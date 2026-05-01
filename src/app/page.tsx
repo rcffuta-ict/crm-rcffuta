@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useSpring } from "framer-motion";
-import { BookOpen, Zap, Music, Flag, Heart } from "lucide-react";
+import { Zap } from "lucide-react";
 
 import ImageDisplay, {
     ImagePlaceholder,
@@ -12,8 +12,8 @@ import RegistrationForm from "../components/RegistrationForm";
 import { FellowshipsSection } from "../components/MarqueeSection";
 
 import Header from "../components/Header";
-import { ministers } from "@/data/ministers";
 import { fellowships } from "@/data/fellowships";
+import config from "@/data/config.json";
 import { useMemo } from "react";
 
 export default function CLT2025Experience() {
@@ -53,45 +53,42 @@ export default function CLT2025Experience() {
                     >
                         <div className="mb-4 flex items-center gap-2 text-sm font-bold tracking-wide text-green-600 uppercase">
                             <span className="h-[2px] w-8 bg-green-600"></span>
-                            About the Gathering
+                            {config.about.title}
                         </div>
                         <h2 className="mb-6 text-4xl leading-tight font-bold text-slate-900 md:text-5xl">
-                            Forging the Next Generation of <br />
-                            {/* Gradient Text for pop */}
-                            <span className="bg-gradient-to-r from-green-600 via-amber-500 to-orange-500 bg-clip-text text-transparent">
-                                Kingdom Giants
-                            </span>
+                            <span
+                                dangerouslySetInnerHTML={{
+                                    __html: config.about.heading.replace(
+                                        " Kingdom Giants",
+                                        "<br /><span class='bg-gradient-to-r from-green-600 via-amber-500 to-orange-500 bg-clip-text text-transparent'>Kingdom Giants</span>",
+                                    ),
+                                }}
+                            />
                         </h2>
-                        <p className="mb-6 text-lg leading-relaxed text-slate-600">
-                            The Campus Leadership Training (CLT) is the annual
-                            flagship convergence of the Redeemed Christian
-                            Fellowship (RCF) chapters across Ondo Zone.
-                        </p>
-                        <p className="mb-8 text-lg leading-relaxed text-slate-600">
-                            Hosted by Christ Redeemer&apos;s Ministries (CRM),
-                            this meeting is designed to sharpen the spiritual
-                            and administrative capacity of Excos, Workers, and
-                            Volunteers.
-                        </p>
+                        {config.about.paragraphs.map((p, i) => (
+                            <p
+                                key={i}
+                                className="mb-6 text-lg leading-relaxed text-slate-600"
+                            >
+                                {p}
+                            </p>
+                        ))}
 
                         {/* Stats - Light Mode */}
                         <div className="grid grid-cols-2 gap-6">
-                            <div className="rounded-2xl border border-slate-100 bg-slate-50 p-6 shadow-sm transition-shadow hover:shadow-md">
-                                <div className="mb-1 text-4xl font-extrabold text-slate-900">
-                                    500<span className="text-green-600">+</span>
+                            {config.about.stats.map((stat, i) => (
+                                <div
+                                    key={i}
+                                    className="rounded-2xl border border-slate-100 bg-slate-50 p-6 shadow-sm transition-shadow hover:shadow-md"
+                                >
+                                    <div className="mb-1 text-4xl font-extrabold text-slate-900">
+                                        {stat.value}
+                                    </div>
+                                    <div className="text-sm font-medium tracking-wider text-slate-500 uppercase">
+                                        {stat.label}
+                                    </div>
                                 </div>
-                                <div className="text-sm font-medium tracking-wider text-slate-500 uppercase">
-                                    Leaders Expected
-                                </div>
-                            </div>
-                            <div className="rounded-2xl border border-slate-100 bg-slate-50 p-6 shadow-sm transition-shadow hover:shadow-md">
-                                <div className="mb-1 text-4xl font-extrabold text-slate-900">
-                                    {totalFellowships}
-                                </div>
-                                <div className="text-sm font-medium tracking-wider text-slate-500 uppercase">
-                                    RCF Chapters
-                                </div>
-                            </div>
+                            ))}
                         </div>
                     </motion.div>
 
@@ -143,8 +140,8 @@ export default function CLT2025Experience() {
                         centered
                     />
 
-                    <div className="grid gap-8 md:grid-cols-3">
-                        {ministers.map((speaker, i) => (
+                    <div className="grid gap-8 md:grid-cols-3 lg:grid-cols-4">
+                        {config.ministers.map((speaker, i) => (
                             <motion.div
                                 key={i}
                                 initial={{ opacity: 0, y: 30 }}
@@ -154,12 +151,22 @@ export default function CLT2025Experience() {
                                 className="group relative"
                             >
                                 <div className="overflow-hidden rounded-3xl bg-white shadow-md">
-                                    <ImageDisplay
-                                        alt={`${speaker.name} Photo`}
-                                        src={speaker.picture}
-                                        height="h-[400px]"
-                                        className="transition-transform duration-700 group-hover:scale-105"
-                                    />
+                                    <div
+                                        className={`flex h-[400px] w-full items-center justify-center ${speaker.color}`}
+                                    >
+                                        {speaker.picture ? (
+                                            <ImageDisplay
+                                                alt={`${speaker.name} Photo`}
+                                                src={speaker.picture}
+                                                height="h-[400px]"
+                                                className="transition-transform duration-700 group-hover:scale-105"
+                                            />
+                                        ) : (
+                                            <div className="flex flex-col items-center justify-center text-slate-400">
+                                                <div className="h-24 w-24 rounded-full bg-slate-200" />
+                                            </div>
+                                        )}
+                                    </div>
                                     {/* Overlay Gradient on Image */}
                                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-60 transition-opacity group-hover:opacity-40"></div>
                                 </div>
@@ -190,89 +197,29 @@ export default function CLT2025Experience() {
                 <div className="mx-auto max-w-4xl px-4">
                     <SectionHeading title="Order of Events" centered />
 
-                    <div className="space-y-4">
-                        {[
-                            {
-                                time: "1 -",
-                                activity: "Opening Prayer & Worship",
-                                desc: "Praise, Introductions, and Special Welcome",
-                                icon: Music,
-                            },
-                            {
-                                time: "2 -",
-                                activity: "Word Session I",
-                                desc: "The First Charge",
-                                icon: BookOpen,
-                            },
-                            {
-                                time: "3 -",
-                                activity: "Creative Ministrations",
-                                desc: "Drama Presentation & Prayer Charge",
-                                icon: Zap,
-                            },
-                            {
-                                time: "4 -",
-                                activity: "Word Session II",
-                                desc: "The Second Charge & Prayer",
-                                icon: BookOpen,
-                            },
-                            {
-                                time: "5 -",
-                                activity: "Word Session III",
-                                desc: "Choir Ministration & Third Charge",
-                                icon: BookOpen,
-                            },
-                            {
-                                time: "6 -",
-                                activity: "Interactive & Handover",
-                                desc: "Q&A, Offering, and Zonal Executive Handover",
-                                icon: Flag,
-                            },
-                            {
-                                time: "7 -",
-                                activity: "Thanksgiving & Benediction",
-                                desc: "Closing Praises",
-                                icon: Heart,
-                            },
-                        ].map((item, i) => (
+                    {config.schedule.isUpcoming ? (
+                        <div className="flex min-h-[300px] flex-col items-center justify-center rounded-3xl border border-slate-100 bg-slate-50 p-12 text-center">
                             <motion.div
-                                key={i}
-                                initial={{ opacity: 0, x: -20 }}
-                                whileInView={{ opacity: 1, x: 0 }}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
-                                transition={{ delay: i * 0.1 }}
-                                className="flex items-center gap-4 rounded-2xl border border-slate-100 bg-white p-6 shadow-sm transition-all hover:border-green-200 hover:shadow-lg md:gap-6"
                             >
-                                {/* Time Column */}
-                                <div className="flex w-20 flex-shrink-0 flex-col md:w-24">
-                                    <span className="font-mono text-sm font-bold text-green-600 md:text-base">
-                                        {item.time.split(" ")[0]}
-                                    </span>
-                                    <span className="text-xs font-medium text-slate-400">
-                                        {item.time.split(" ")[1]}
-                                    </span>
+                                <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-green-100 text-green-600">
+                                    <Zap className="h-10 w-10" />
                                 </div>
-
-                                {/* Vertical Line */}
-                                <div className="h-12 w-[2px] rounded-full bg-slate-100"></div>
-
-                                {/* Content Column */}
-                                <div className="flex-grow">
-                                    <h3 className="text-lg leading-tight font-bold text-slate-900">
-                                        {item.activity}
-                                    </h3>
-                                    <p className="mt-1 text-sm font-medium text-slate-500">
-                                        {item.desc}
-                                    </p>
-                                </div>
-
-                                {/* Icon Column */}
-                                <div className="hidden h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-green-50 text-green-600 transition-colors group-hover:bg-green-100 sm:flex">
-                                    <item.icon className="h-6 w-6" />
-                                </div>
+                                <h3 className="mb-4 text-2xl font-bold text-slate-900">
+                                    Stay Tuned
+                                </h3>
+                                <p className="mx-auto max-w-md text-lg text-slate-600">
+                                    {config.schedule.upcomingMessage}
+                                </p>
                             </motion.div>
-                        ))}
-                    </div>
+                        </div>
+                    ) : (
+                        <div className="space-y-4">
+                            {/* In the future, map over config.schedule.events here */}
+                        </div>
+                    )}
                 </div>
             </section>
 
