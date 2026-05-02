@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
     subsets: ["latin"],
 });
 
-import config from "@/data/config.json";
+import config from "@/data/rcrc";
 
 const SITE_URL = config.site.url;
 
@@ -31,11 +31,11 @@ export const metadata: Metadata = {
     metadataBase: new URL(SITE_URL),
     title: {
         default: config.site.title,
-        template: `%s | ${config.event.title}`,
+        template: `%s | ${config.event.name}`,
     },
     description: config.site.description,
-    keywords: config.site.keywords,
-    authors: [{ name: config.footer.poweredBy, url: "https://ict.rcffuta.com" }],
+    keywords: [...config.site.keywords],
+    authors: [{ name: config.footer.poweredBy, url: config.footer.poweredByUrl }],
     creator: "The Redeemed Christian Fellowship FUTA Chapter",
     icons: {
         icon: "/favicon.ico",

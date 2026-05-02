@@ -5,6 +5,8 @@ import { initSupabase } from "@/lib/supabase";
 export async function getAdminData(passcode: string) {
     const ADMIN_PASS = process.env.ADMIN_PASSWORD || "clt2025admin";
 
+    console.log(ADMIN_PASS, passcode);
+
     if (passcode !== ADMIN_PASS) {
         return { success: false, message: "Invalid Access Code" };
     }

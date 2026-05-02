@@ -16,7 +16,6 @@ export default function GallerySection() {
                     title="Moments of Impact"
                     subtitle="A visual journey through previous conferences, retreats, and congresses. See what God is doing in our midst."
                     centered
-                    isDark={true}
                 />
 
                 {/* Masonry / Bento Grid Layout */}

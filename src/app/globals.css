@@ -1,54 +1,264 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap");
 @import "tailwindcss";
 
+/* ─── DESIGN TOKENS ──────────────────────────────────────── */
 :root {
-    --background: #ffffff;
-    --foreground: #171717;
+    --bg-page:       #fafaf8;
+    --bg-section-alt: #f4f4f0;
+    /* Gold — pulled from the Steadfast logo metallic texture */
+    --gold-300:      #F5D060;  /* bright highlight */
+    --gold-400:      #E8B420;  /* mid-tone warm gold */
+    --gold-500:      #C8960C;  /* primary burnished gold */
+    --gold-600:      #B07C08;  /* deep shadow gold */
+    --gold-700:      #8B6008;  /* darkest anchor */
+    --green-brand:   #16a34a;
+    --green-bright:  #22c55e;
+    --ink-900:       #111827;
+    --ink-700:       #374151;
+    --ink-500:       #6b7280;
+    --ink-300:       #d1d5db;
 }
 
 @theme inline {
-    --color-background: var(--background);
-    --color-foreground: var(--foreground);
-    --font-sans: var(--font-geist-sans);
-    --font-mono: var(--font-geist-mono);
-    --color-gold-400: #fbbf24;
-    --color-gold-500: #f59e0b;
-    --color-gold-600: #d97706;
+    --font-sans:   "Outfit", system-ui, sans-serif;
+    --font-mono:   var(--font-geist-mono);
 
-    --animate-scroll: scroll 40s linear infinite;
-    --animate-shine: shine 1s;
+    --color-gold-300: var(--gold-300);
+    --color-gold-400: var(--gold-400);
+    --color-gold-500: var(--gold-500);
+    --color-gold-600: var(--gold-600);
+    --color-gold-700: var(--gold-700);
 
-    --font-sans: var(--font-geist-sans);
+    /* ── animations ── */
+    --animate-scroll:      scroll 45s linear infinite;
+    --animate-float:       float 6s ease-in-out infinite;
+    --animate-glow-pulse:  glow-pulse 3s ease-in-out infinite;
+    --animate-shimmer:     shimmer 2.5s linear infinite;
+    --animate-shine:       shine 1.2s ease-in-out;
+    --animate-ember:       ember-rise 8s ease-out infinite;
+    --animate-spin-slow:   spin-slow 20s linear infinite;
 
     @keyframes scroll {
-        from {
-            transform: translateX(0);
-        }
-        to {
-            transform: translateX(-50%);
-        }
+        from { transform: translateX(0); }
+        to   { transform: translateX(-50%); }
     }
-
+    @keyframes float {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        33%       { transform: translateY(-12px) rotate(1deg); }
+        66%       { transform: translateY(-6px) rotate(-1deg); }
+    }
+    @keyframes glow-pulse {
+        0%, 100% { opacity: 0.4; transform: scale(1); }
+        50%       { opacity: 0.8; transform: scale(1.05); }
+    }
+    @keyframes shimmer {
+        0%   { background-position: -200% center; }
+        100% { background-position:  200% center; }
+    }
     @keyframes shine {
-        100% {
-            left: 125%;
-        }
+        100% { left: 125%; }
+    }
+    @keyframes ember-rise {
+        0%   { transform: translateY(0) scale(1); opacity: 0; }
+        10%  { opacity: 1; }
+        90%  { opacity: 0.3; }
+        100% { transform: translateY(-100vh) scale(0.3); opacity: 0; }
+    }
+    @keyframes spin-slow {
+        from { transform: rotate(0deg); }
+        to   { transform: rotate(360deg); }
+    }
+    @keyframes grain {
+        0%, 100% { transform: translate(0, 0); }
+        10%  { transform: translate(-2%, -3%); }
+        20%  { transform: translate(3%, 1%); }
+        30%  { transform: translate(-1%, 4%); }
+        40%  { transform: translate(2%, -2%); }
+        50%  { transform: translate(-3%, 2%); }
+        60%  { transform: translate(1%, -3%); }
+        70%  { transform: translate(-2%, 1%); }
+        80%  { transform: translate(3%, 3%); }
+        90%  { transform: translate(-1%, -1%); }
     }
 }
 
-/* @media (prefers-color-scheme: dark) {
-    :root {
-        --background: #0a0a0a;
-        --foreground: #ededed;
-    }
-} */
-
-/* body {
-    background: var(--background);
-    color: var(--foreground);
-    font-family: Arial, Helvetica, sans-serif;
-} */
+/* ─── BASE ────────────────────────────────────────────────── */
+html { scroll-behavior: smooth; }
 
 body {
-    background-color: #020617; /* slate-950 */
-    color: #e2e8f0; /* slate-200 */
+    background-color: var(--bg-page);
+    color: var(--ink-900);
+    font-family: "Outfit", "Geist", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+    background-color: rgba(217, 119, 6, 0.15);
+    color: #b45309;
+}
+
+/* ─── CUSTOM SCROLLBAR ───────────────────────────────────── */
+::-webkit-scrollbar            { width: 5px; }
+::-webkit-scrollbar-track      { background: #f4f4f0; }
+::-webkit-scrollbar-thumb      {
+    background: linear-gradient(to bottom, #d97706, #16a34a);
+    border-radius: 3px;
+}
+
+/* ─── GRAIN (used only in hero/dark zones) ───────────────── */
+.grain-overlay::after {
+    content: "";
+    position: absolute;
+    inset: -200%;
+    width: 400%; height: 400%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+    opacity: 0.04;
+    animation: grain 8s steps(10) infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ─── UTILITY CLASSES ────────────────────────────────────── */
+
+/* Gold shimmer text — used on headings */
+.text-gold-shimmer {
+    background: linear-gradient(90deg, #8B6008 0%, #C8960C 30%, #F5D060 50%, #C8960C 70%, #8B6008 100%);
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 3s linear infinite;
+}
+
+/* Glow text — hero only */
+.text-glow { text-shadow: 0 0 20px rgba(251,191,36,0.5), 0 0 40px rgba(251,191,36,0.2); }
+
+/* Glass — light surface variant */
+.glass {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(0,0,0,0.06);
+}
+
+/* Glass — dark variant (hero only) */
+.glass-dark {
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Gold tinted glass — light surfaces */
+.glass-gold {
+    background: rgba(253,230,138,0.12);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(217,119,6,0.15);
+}
+
+/* Card surfaces */
+.card {
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,0.07);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.06);
+}
+
+/* Edge-lit (for special cards on light bg) */
+.edge-lit {
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 1px 0 rgba(0,0,0,0.05), 0 8px 24px rgba(0,0,0,0.06);
+}
+
+/* Gold hover glow on light bg */
+.hover-gold-glow { transition: box-shadow 0.3s ease; }
+.hover-gold-glow:hover { box-shadow: 0 0 24px rgba(217,119,6,0.2), 0 0 48px rgba(217,119,6,0.08); }
+
+/* ─── CUSTOM FORM INPUTS ─────────────────────────────────── */
+
+/* Base input style */
+.input-base {
+    display: block;
+    width: 100%;
+    padding: 0.875rem 1.125rem;
+    font-family: "Outfit", system-ui, sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: #111827;
+    background: #ffffff;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 0.875rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04), inset 0 1px 2px rgba(0,0,0,0.02);
+}
+.input-base::placeholder { color: #9ca3af; font-weight: 400; }
+.input-base:hover { border-color: #d1d5db; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+.input-base:focus {
+    border-color: #C8960C;
+    box-shadow: 0 0 0 4px rgba(200,150,12,0.1), 0 2px 6px rgba(0,0,0,0.06);
+    background: #fffdf5;
+}
+.input-base:disabled { opacity: 0.5; cursor: not-allowed; background: #f9fafb; }
+
+/* Select specific */
+select.input-base {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+    cursor: pointer;
+}
+select.input-base option { background: #ffffff; color: #111827; }
+
+/* Textarea specific */
+textarea.input-base { resize: vertical; min-height: 100px; line-height: 1.6; }
+
+/* Label */
+.input-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6b7280;
+}
+.input-label .required-star { color: #d97706; margin-left: 2px; }
+
+/* Radio pill */
+.radio-pill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 0.875rem;
+    cursor: pointer;
+    background: #ffffff;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #374151;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.radio-pill:hover { border-color: #E8B420; background: #fffdf5; color: #8B6008; }
+.radio-pill input[type="radio"] { accent-color: #C8960C; width: 1rem; height: 1rem; }
+.radio-pill:has(input:checked) {
+    border-color: #C8960C;
+    background: linear-gradient(135deg, #fffdf5 0%, #fef3c7 100%);
+    color: #8B6008;
+    box-shadow: 0 0 0 3px rgba(200,150,12,0.12), 0 2px 6px rgba(0,0,0,0.06);
 }

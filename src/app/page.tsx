@@ -1,184 +1,231 @@
 "use client";
 
-import { motion, useScroll, useSpring } from "framer-motion";
-import { Zap } from "lucide-react";
+import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
+import {
+    Users, Flag, Music, BookOpen, Zap, Heart, Sun, Layers, Flame, Sparkles,
+} from "lucide-react";
+import Image from "next/image";
+import { useState } from "react";
 
-import ImageDisplay, {
-    ImagePlaceholder,
-} from "../components/common/ImageDisplay";
 import SectionHeading from "../components/common/SectionHeading";
 import HeroSection from "../components/HeroSection";
 import RegistrationForm from "../components/RegistrationForm";
 import { FellowshipsSection } from "../components/MarqueeSection";
-
 import Header from "../components/Header";
-import { fellowships } from "@/data/fellowships";
-import config from "@/data/config.json";
-import { useMemo } from "react";
+import config from "@/data/rcrc";
 
-export default function CLT2025Experience() {
+const iconMap: Record<string, React.ElementType> = {
+    users: Users, flag: Flag, music: Music, book: BookOpen, zap: Zap,
+    heart: Heart, sun: Sun, layers: Layers, flame: Flame, sparkles: Sparkles,
+};
+
+const dayPalettes = {
+    amber: {
+        tab: "bg-amber-500 text-white shadow-lg shadow-amber-500/30",
+        tabInactive: "bg-white border border-slate-200 text-slate-500 hover:border-amber-300 hover:text-amber-700",
+        dot: "bg-amber-500",
+        ring: "rgba(217,119,6,0.15)",
+        icon: "bg-amber-50 border-amber-100 text-amber-600",
+        dayLabel: "text-amber-600",
+        badge: "bg-amber-50 text-amber-700 border border-amber-200",
+    },
+    green: {
+        tab: "bg-green-600 text-white shadow-lg shadow-green-500/30",
+        tabInactive: "bg-white border border-slate-200 text-slate-500 hover:border-green-300 hover:text-green-700",
+        dot: "bg-green-500",
+        ring: "rgba(22,163,74,0.15)",
+        icon: "bg-green-50 border-green-100 text-green-600",
+        dayLabel: "text-green-600",
+        badge: "bg-green-50 text-green-700 border border-green-200",
+    },
+    blue: {
+        tab: "bg-blue-600 text-white shadow-lg shadow-blue-500/30",
+        tabInactive: "bg-white border border-slate-200 text-slate-500 hover:border-blue-300 hover:text-blue-700",
+        dot: "bg-blue-500",
+        ring: "rgba(59,130,246,0.15)",
+        icon: "bg-blue-50 border-blue-100 text-blue-600",
+        dayLabel: "text-blue-600",
+        badge: "bg-blue-50 text-blue-700 border border-blue-200",
+    },
+};
+
+export default function ZonalCongressApp() {
     const { scrollYProgress } = useScroll();
-    const scaleX = useSpring(scrollYProgress, {
-        stiffness: 100,
-        damping: 30,
-        restDelta: 0.001,
-    });
+    const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+    const [activeDay, setActiveDay] = useState(0);
 
-    const totalFellowships = useMemo(() => fellowships.length, []);
+    const schedule = config.schedule;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const days = !schedule.isUpcoming && "days" in schedule ? (schedule as any).days as Array<{ day: string; label: string; date: string; color: string; events: Array<{ time: string; activity: string; desc: string; icon: string }> }> : [];
 
     return (
-        <main className="min-h-screen overflow-x-hidden bg-white font-sans text-slate-900 selection:bg-green-200 selection:text-green-900">
-            {/* Progress Bar */}
+        <main className="min-h-screen overflow-x-hidden bg-[#fafaf8] font-sans text-slate-900">
+            {/* Scroll progress bar */}
             <motion.div
-                className="fixed top-0 right-0 left-0 z-[60] h-1 origin-left bg-gradient-to-r from-green-500 to-amber-500"
+                className="fixed top-0 right-0 left-0 z-[70] h-[2px] origin-left bg-gradient-to-r from-amber-500 via-amber-400 to-green-500"
                 style={{ scaleX }}
             />
 
             <Header />
 
-            {/* --- Hero Section (Keep Dark/Cinematic for impact) --- */}
+            {/* Hero stays dark/cinematic */}
             <HeroSection />
 
-            {/* --- About Section (BRIGHT & VIBRANT) --- */}
-            <section
-                id="about"
-                className="relative overflow-hidden bg-white py-24"
-            >
-                <div className="mx-auto grid max-w-7xl items-center gap-16 px-4 lg:grid-cols-2">
+            {/* ─── ABOUT ──────────────────────────────────────────────── */}
+            <section id="about" className="relative overflow-hidden bg-[#fafaf8] py-28">
+                {/* Subtle dot grid bg */}
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(#d1d5db_1px,transparent_1px)] [background-size:28px_28px] opacity-30" />
+                {/* Gold blob top-right */}
+                <div className="pointer-events-none absolute -top-20 -right-20 h-80 w-80 rounded-full bg-amber-200/40 blur-[80px]" />
+                {/* Green blob bottom-left */}
+                <div className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-green-200/40 blur-[80px]" />
+
+                <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-16 px-4 lg:grid-cols-2">
+                    {/* Left: Text */}
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                     >
-                        <div className="mb-4 flex items-center gap-2 text-sm font-bold tracking-wide text-green-600 uppercase">
-                            <span className="h-[2px] w-8 bg-green-600"></span>
-                            {config.about.title}
+                        <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3 py-1.5">
+                            <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+                            <span className="text-xs font-bold tracking-widest text-amber-700 uppercase">{config.about.tagline}</span>
                         </div>
-                        <h2 className="mb-6 text-4xl leading-tight font-bold text-slate-900 md:text-5xl">
-                            <span
-                                dangerouslySetInnerHTML={{
-                                    __html: config.about.heading.replace(
-                                        " Kingdom Giants",
-                                        "<br /><span class='bg-gradient-to-r from-green-600 via-amber-500 to-orange-500 bg-clip-text text-transparent'>Kingdom Giants</span>",
-                                    ),
-                                }}
-                            />
+
+                        <h2 className="mb-6 text-4xl font-bold leading-tight text-slate-900 md:text-5xl">
+                            {config.about.heading.split("Kingdom")[0]}
+                            <span className="text-gold-shimmer">Kingdom{config.about.heading.split("Kingdom")[1]}</span>
                         </h2>
+
                         {config.about.paragraphs.map((p, i) => (
-                            <p
-                                key={i}
-                                className="mb-6 text-lg leading-relaxed text-slate-600"
-                            >
-                                {p}
-                            </p>
+                            <p key={i} className="mb-5 text-base leading-relaxed text-slate-600 md:text-lg">{p}</p>
                         ))}
 
-                        {/* Stats - Light Mode */}
-                        <div className="grid grid-cols-2 gap-6">
+                        {/* Stats */}
+                        <div className="mt-8 grid grid-cols-3 gap-4">
                             {config.about.stats.map((stat, i) => (
-                                <div
+                                <motion.div
                                     key={i}
-                                    className="rounded-2xl border border-slate-100 bg-slate-50 p-6 shadow-sm transition-shadow hover:shadow-md"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: i * 0.1 + 0.3 }}
+                                    className="card card-hover rounded-2xl p-5 text-center"
                                 >
-                                    <div className="mb-1 text-4xl font-extrabold text-slate-900">
+                                    <div className="text-3xl font-black text-slate-900">
                                         {stat.value}
+                                        <span className="text-amber-500">{stat.suffix}</span>
                                     </div>
-                                    <div className="text-sm font-medium tracking-wider text-slate-500 uppercase">
-                                        {stat.label}
-                                    </div>
-                                </div>
+                                    <div className="mt-1 text-xs font-semibold tracking-wide text-slate-400 uppercase">{stat.label}</div>
+                                </motion.div>
                             ))}
                         </div>
                     </motion.div>
 
+                    {/* Right: Image mosaic */}
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
+                        initial={{ opacity: 0, scale: 0.95 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                         className="relative"
                     >
-                        {/* Visual Decoration - Bright Blobs */}
-                        <div className="absolute -top-10 -right-10 h-72 w-72 rounded-full bg-green-200 opacity-40 mix-blend-multiply blur-3xl"></div>
-                        <div className="absolute -bottom-10 -left-10 h-72 w-72 rounded-full bg-amber-200 opacity-40 mix-blend-multiply blur-3xl"></div>
-
-                        {/* Image Grid */}
-                        <div className="relative z-10 grid grid-cols-2 gap-4">
-                            <ImagePlaceholder
-                                text="Worship"
-                                height="h-64"
-                                className="mt-12 rounded-tr-[3rem] border-4 border-white shadow-xl"
-                            />
-                            <ImagePlaceholder
-                                text="Word"
-                                height="h-64"
-                                className="rounded-tl-[3rem] border-4 border-white shadow-xl"
-                            />
-                            <ImagePlaceholder
-                                text="Prayer"
-                                height="h-64"
-                                className="rounded-br-[3rem] border-4 border-white shadow-xl"
-                            />
-                            <ImagePlaceholder
-                                text="Community"
-                                height="h-64"
-                                className="mb-12 rounded-bl-[3rem] border-4 border-white shadow-xl"
-                            />
+                        <div className="relative z-10 grid grid-cols-2 gap-3">
+                            {config.about.images.map((img, i) => (
+                                <div
+                                    key={i}
+                                    className={`relative flex h-64 items-center justify-center overflow-hidden rounded-3xl border border-slate-200 bg-slate-100 shadow-sm ${
+                                        i === 0 ? "mt-10" : i === 3 ? "mb-10" : ""
+                                    }`}
+                                >
+                                    {img.src ? (
+                                        <Image src={img.src} alt={img.alt} fill className="object-cover" />
+                                    ) : (
+                                        <div className="flex flex-col items-center gap-2 text-slate-400">
+                                            <div className="h-12 w-12 rounded-full border-2 border-dashed border-slate-300" />
+                                            <span className="text-xs font-medium">{img.alt}</span>
+                                        </div>
+                                    )}
+                                    <div className="absolute bottom-3 left-3 rounded-full border border-white/60 bg-white/80 px-3 py-1 text-xs font-semibold text-slate-700 backdrop-blur-sm">
+                                        {img.alt}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        {/* Floating badge */}
+                        <div className="absolute -right-4 top-1/2 z-20 -translate-y-1/2 rotate-3 rounded-2xl border border-amber-200 bg-white p-4 shadow-xl">
+                            <div className="text-center">
+                                <div className="text-2xl font-black text-amber-600">{config.event.edition}</div>
+                                <div className="text-xs font-bold tracking-wider text-slate-500 uppercase">{config.event.name}</div>
+                            </div>
                         </div>
                     </motion.div>
                 </div>
             </section>
 
-            {/* --- Speakers Section (Bright & Clean) --- */}
-            <section id="ministers" className="bg-slate-50 py-24">
-                <div className="mx-auto max-w-7xl px-4">
-                    {/* Pass isDark={false} if your SectionHeading component supports it, otherwise it adapts */}
+            {/* ─── MINISTERS ──────────────────────────────────────────── */}
+            <section id="ministers" className="relative overflow-hidden bg-[#f4f4f0] py-28">
+                <div className="pointer-events-none absolute inset-0">
+                    <div className="absolute top-0 left-1/2 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
+                    <div className="absolute bottom-0 left-1/2 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
+                    <div className="absolute top-1/4 right-0 h-96 w-96 translate-x-1/2 rounded-full bg-amber-100/60 blur-[100px]" />
+                </div>
+
+                <div className="relative z-10 mx-auto max-w-7xl px-4">
                     <SectionHeading
                         title="Ministering Vessels"
-                        subtitle="Prepared by God to bless this generation."
+                        subtitle="Chosen and prepared by God to bless this generation."
+                        tag="Guest Ministers"
                         centered
                     />
 
-                    <div className="grid gap-8 md:grid-cols-3 lg:grid-cols-4">
-                        {config.ministers.map((speaker, i) => (
+                    <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                        {config.ministers.map((minister, i) => (
                             <motion.div
-                                key={i}
-                                initial={{ opacity: 0, y: 30 }}
+                                key={minister.id}
+                                initial={{ opacity: 0, y: 40 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ delay: i * 0.1 }}
+                                transition={{ delay: i * 0.07 }}
                                 className="group relative"
                             >
-                                <div className="overflow-hidden rounded-3xl bg-white shadow-md">
-                                    <div
-                                        className={`flex h-[400px] w-full items-center justify-center ${speaker.color}`}
-                                    >
-                                        {speaker.picture ? (
-                                            <ImageDisplay
-                                                alt={`${speaker.name} Photo`}
-                                                src={speaker.picture}
-                                                height="h-[400px]"
-                                                className="transition-transform duration-700 group-hover:scale-105"
-                                            />
+                                <div className="card card-hover relative flex h-[340px] flex-col overflow-hidden rounded-3xl transition-all duration-500">
+                                    {/* Photo area */}
+                                    <div className="relative flex-1 overflow-hidden bg-slate-100">
+                                        {minister.picture ? (
+                                            <Image src={minister.picture} alt={minister.name} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
                                         ) : (
-                                            <div className="flex flex-col items-center justify-center text-slate-400">
-                                                <div className="h-24 w-24 rounded-full bg-slate-200" />
+                                            <div className={`flex h-full w-full items-center justify-center bg-gradient-to-br ${minister.accent} opacity-10`}>
+                                                <div className="flex flex-col items-center gap-2">
+                                                    <div className="h-20 w-20 rounded-full border-2 border-dashed border-slate-300" />
+                                                </div>
+                                            </div>
+                                        )}
+                                        {/* Bottom fade */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-60" />
+
+                                        {/* Gradient accent top strip */}
+                                        <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${minister.accent}`} />
+
+                                        {/* TBA badge */}
+                                        {minister.name === "TBA" && (
+                                            <div className="absolute top-4 right-4 rounded-full border border-slate-200 bg-white/90 px-3 py-1 text-xs font-bold text-slate-400 backdrop-blur-sm">
+                                                TBA
                                             </div>
                                         )}
                                     </div>
-                                    {/* Overlay Gradient on Image */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-60 transition-opacity group-hover:opacity-40"></div>
-                                </div>
 
-                                {/* Floating Info Card */}
-                                <div className="absolute right-4 bottom-4 left-4 translate-y-2 transform rounded-2xl border border-slate-100 bg-white p-5 shadow-xl transition-all duration-300 group-hover:translate-y-0">
-                                    <p className="mb-1 text-xs font-bold tracking-wider text-amber-600 uppercase">
-                                        {speaker.role}
-                                    </p>
-                                    <h3 className="text-xl font-bold text-slate-900">
-                                        {speaker.name}
-                                    </h3>
+                                    {/* Info */}
+                                    <div className="p-5">
+                                        <p className={`mb-1 text-[10px] font-bold tracking-widest uppercase bg-gradient-to-r ${minister.accent} bg-clip-text text-transparent`}>
+                                            {minister.role}
+                                        </p>
+                                        <h3 className="text-lg font-bold text-slate-900">{minister.name}</h3>
+                                        {minister.church && minister.church !== "TBA" && (
+                                            <p className="mt-0.5 text-xs text-slate-400">{minister.church}</p>
+                                        )}
+                                    </div>
                                 </div>
                             </motion.div>
                         ))}
@@ -186,64 +233,130 @@ export default function CLT2025Experience() {
                 </div>
             </section>
 
-            {/* --- Gallery / Marquee Section (Keep Dark for contrast/visual break) --- */}
-            <div className="relative z-20">
-                {/* <GallerySection /> */}
-                <FellowshipsSection />
-            </div>
+            {/* ─── FELLOWSHIPS ────────────────────────────────────────── */}
+            <FellowshipsSection />
 
-            {/* --- Schedule Section (BRIGHT) --- */}
-            <section id="schedule" className="bg-white py-24">
-                <div className="mx-auto max-w-4xl px-4">
-                    <SectionHeading title="Order of Events" centered />
+            {/* ─── SCHEDULE ───────────────────────────────────────────── */}
+            <section id="schedule" className="relative overflow-hidden bg-[#fafaf8] py-28">
+                <div className="pointer-events-none absolute inset-0">
+                    <div className="absolute top-0 left-1/2 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+                    <div className="absolute -bottom-20 left-1/2 h-64 w-[600px] -translate-x-1/2 rounded-full bg-green-100/50 blur-[80px]" />
+                </div>
 
-                    {config.schedule.isUpcoming ? (
-                        <div className="flex min-h-[300px] flex-col items-center justify-center rounded-3xl border border-slate-100 bg-slate-50 p-12 text-center">
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                            >
-                                <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-green-100 text-green-600">
-                                    <Zap className="h-10 w-10" />
-                                </div>
-                                <h3 className="mb-4 text-2xl font-bold text-slate-900">
-                                    Stay Tuned
-                                </h3>
-                                <p className="mx-auto max-w-md text-lg text-slate-600">
-                                    {config.schedule.upcomingMessage}
-                                </p>
-                            </motion.div>
-                        </div>
+                <div className="relative z-10 mx-auto max-w-5xl px-4">
+                    <SectionHeading
+                        title="Order of Events"
+                        subtitle="Three days of glory, fire, and transformation."
+                        tag="Programme"
+                        centered
+                    />
+
+                    {schedule.isUpcoming ? (
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            className="flex min-h-[280px] flex-col items-center justify-center rounded-3xl border border-amber-200 bg-amber-50/50 p-16 text-center"
+                        >
+                            <div className="animate-glow-pulse mb-6 flex h-20 w-20 items-center justify-center rounded-full border border-amber-200 bg-amber-100">
+                                <Zap className="h-10 w-10 text-amber-600" />
+                            </div>
+                            <h3 className="mb-3 text-2xl font-bold text-slate-900">Stay Tuned</h3>
+                            <p className="mx-auto max-w-md text-slate-500">{schedule.upcomingMessage}</p>
+                        </motion.div>
                     ) : (
-                        <div className="space-y-4">
-                            {/* In the future, map over config.schedule.events here */}
-                        </div>
+                        <>
+                            {/* Day tabs */}
+                            <div className="mb-10 flex flex-wrap justify-center gap-3">
+                                {days.map((day, i) => {
+                                    const palette = dayPalettes[day.color as keyof typeof dayPalettes] ?? dayPalettes.amber;
+                                    return (
+                                        <button
+                                            key={i}
+                                            onClick={() => setActiveDay(i)}
+                                            className={`rounded-2xl px-6 py-3 text-sm font-bold transition-all duration-300 ${
+                                                activeDay === i ? palette.tab : palette.tabInactive
+                                            }`}
+                                        >
+                                            <span className="block text-xs font-bold tracking-widest uppercase opacity-70">{day.day}</span>
+                                            <span className="mt-0.5 block">{day.label}</span>
+                                        </button>
+                                    );
+                                })}
+                            </div>
+
+                            {/* Events list */}
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={activeDay}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -20 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="space-y-3"
+                                >
+                                    {days[activeDay]?.events.map((item, i) => {
+                                        const Icon = iconMap[item.icon] ?? Sparkles;
+                                        const palette = dayPalettes[days[activeDay].color as keyof typeof dayPalettes] ?? dayPalettes.amber;
+                                        return (
+                                            <motion.div
+                                                key={i}
+                                                initial={{ opacity: 0, x: -20 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: i * 0.06 }}
+                                                className="card group flex items-center gap-5 rounded-2xl p-5 transition-all duration-300 hover:shadow-md"
+                                            >
+                                                {/* Time */}
+                                                <div className="w-20 shrink-0 text-right">
+                                                    <span className="font-mono text-xs font-bold text-slate-400">{item.time}</span>
+                                                </div>
+
+                                                {/* Dot */}
+                                                <div className="flex flex-col items-center">
+                                                    <div
+                                                        className={`h-2.5 w-2.5 shrink-0 rounded-full ${palette.dot}`}
+                                                        style={{ boxShadow: `0 0 0 4px ${palette.ring}` }}
+                                                    />
+                                                </div>
+
+                                                {/* Content */}
+                                                <div className="flex-1">
+                                                    <h4 className="font-semibold text-slate-900">{item.activity}</h4>
+                                                    <p className="mt-0.5 text-sm text-slate-500">{item.desc}</p>
+                                                </div>
+
+                                                {/* Icon */}
+                                                <div className={`hidden h-10 w-10 shrink-0 items-center justify-center rounded-xl border sm:flex ${palette.icon}`}>
+                                                    <Icon className="h-5 w-5" />
+                                                </div>
+                                            </motion.div>
+                                        );
+                                    })}
+                                </motion.div>
+                            </AnimatePresence>
+                        </>
                     )}
                 </div>
             </section>
 
-            {/* --- Registration Section (Bright & Inviting) --- */}
-            <section id="register" className="relative overflow-hidden py-32">
-                {/* Background Gradient */}
-                <div className="absolute inset-0 bg-slate-50"></div>
-                <div className="absolute -top-[20%] -left-[10%] h-[50%] w-[50%] rounded-full bg-green-200/30 blur-3xl"></div>
-                <div className="absolute top-[40%] -right-[10%] h-[60%] w-[40%] rounded-full bg-amber-200/30 blur-3xl"></div>
-
-                <div className="absolute inset-0 bg-[radial-gradient(#cbd5e1_1px,transparent_1px)] [background-size:20px_20px] opacity-40"></div>
+            {/* ─── REGISTRATION ───────────────────────────────────────── */}
+            <section id="register" className="relative overflow-hidden bg-[#f4f4f0] py-28">
+                <div className="pointer-events-none absolute inset-0">
+                    <div className="absolute top-0 left-1/2 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
+                    <div className="absolute top-1/2 left-1/2 h-[500px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-100/60 blur-[100px]" />
+                    <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] opacity-40" />
+                </div>
 
                 <div className="relative z-10 mx-auto max-w-3xl px-4">
                     <div className="mb-12 text-center">
-                        <h2 className="mb-4 text-4xl font-bold text-slate-900">
-                            Secure Your Seat
-                        </h2>
-                        <p className="text-lg text-slate-600">
-                            Registration is mandatory for all attendees.
-                        </p>
+                        <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3 py-1.5">
+                            <span className="text-xs font-bold tracking-widest text-amber-700 uppercase">Registration</span>
+                        </div>
+                        <h2 className="mb-4 text-4xl font-bold text-slate-900 md:text-5xl">{config.registration.headline}</h2>
+                        <p className="text-lg text-slate-500">{config.registration.subheadline}</p>
                     </div>
 
-                    {/* Registration Form Container - Light & Clean */}
-                    <div className="rounded-3xl border border-white bg-white/60 p-8 shadow-2xl shadow-slate-200/50 backdrop-blur-xl md:p-12">
+                    <div className="card rounded-3xl p-8 shadow-xl md:p-12">
                         <RegistrationForm />
                     </div>
                 </div>
