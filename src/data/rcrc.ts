@@ -12,7 +12,6 @@
  */
 
 const config = {
-
     // ─── SITE META ────────────────────────────────────────────
     site: {
         url: "https://crm.rcffuta.com",
@@ -45,13 +44,13 @@ const config = {
         slogan: '"For we are more than conquerors"',
 
         // Set to actual date string when confirmed, e.g. "Nov 14–16, 2025"
-        date: "TBA",
+        date: "May 28th - 31st, 2026",
 
         // Full venue name for details section
-        venue: "TBA",
+        venue: "The Redeemed Christian Fellowship, FUTA Chapter",
 
         // Short location for hero badge (only shown when date is not "TBA")
-        venueShort: "Akure, Ondo State",
+        venueShort: "RCFFUTA, Akure",
     },
 
     // ─── ORGANISATIONAL HIERARCHY ─────────────────────────────
@@ -77,19 +76,19 @@ const config = {
     // ─── NAVIGATION LINKS ─────────────────────────────────────
     // Controls the header navbar. "target" must match a section's id attribute.
     nav: [
-        { label: "About",        target: "about" },
-        { label: "Ministers",    target: "ministers" },
-        { label: "Fellowships",  target: "fellowships" },
-        { label: "Schedule",     target: "schedule" },
+        { label: "About", target: "about" },
+        { label: "Ministers", target: "ministers" },
+        { label: "Fellowships", target: "fellowships" },
+        { label: "Schedule", target: "schedule" },
     ],
 
     // ─── SOCIAL LINKS ─────────────────────────────────────────
     // Set to actual URLs. Use "#" to hide (link will still render).
     socials: {
         instagram: "#",
-        facebook:  "#",
-        twitter:   "#",
-        whatsapp:  "#",
+        facebook: "#",
+        twitter: "#",
+        whatsapp: "#",
     },
 
     // ─── ABOUT SECTION ────────────────────────────────────────
@@ -105,9 +104,9 @@ const config = {
 
         // Stat cards beneath the paragraphs
         stats: [
-            { value: "8",  suffix: "+", label: "Ministering Vessels" },
-            { value: "14", suffix: "",  label: "Participating Chapters" },
-            { value: "1",  suffix: "",  label: "Mighty Move of God" },
+            { value: "8", suffix: "", label: "Ministering Vessels" },
+            { value: "15", suffix: "", label: "Participating Chapters" },
+            { value: "1000", suffix: "+", label: "Attendees" },
         ],
 
         // Image grid (leave src empty "" for placeholder)
@@ -195,8 +194,8 @@ const config = {
     fellowships: [
         {
             id: "rcf-futa",
-            president: "TBA",
-            presidentImage: "", // e.g. "/images/presidents/rcf-futa-president.jpg"
+            president: "Bamise Emmanuel",
+            presidentImage: "https://i.imgur.com/wqOGmHj.jpeg", // e.g. "/images/presidents/rcf-futa-president.jpg"
             founded: "1986",
             location: "FUTA Southgate, Akure",
         },
@@ -451,7 +450,8 @@ const config = {
     // ─── FOOTER ───────────────────────────────────────────────
     footer: {
         copyrightName: "Christ the Redeemer’s Ministries, Ondo Zone", // shown in © notice
-        poweredBy: "Redeemed Christian Fellowship, Federal University of Technology, Akure",
+        poweredBy:
+            "Redeemed Christian Fellowship, Federal University of Technology, Akure",
         poweredByUrl: "https://ict.rcffuta.com",
         contact: {
             addressTitle: "RCF FUTA Secretariat",
@@ -462,7 +462,6 @@ const config = {
             email: "ondocrm@gmail.com",
         },
     },
-
 } as const;
 
 export default config;

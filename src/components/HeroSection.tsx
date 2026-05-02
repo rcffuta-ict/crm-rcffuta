@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -133,13 +134,13 @@ export default function HeroSection() {
                     >
                         <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 shadow-sm">
                             <Calendar className="h-3.5 w-3.5 text-amber-500" />
-                            {config.event.date === "TBA"
+                            {(config.event.date as any) === "TBA"
                                 ? "Date — TBA"
                                 : config.event.date}
                         </div>
                         <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 shadow-sm">
                             <MapPin className="h-3.5 w-3.5 text-green-500" />
-                            {config.event.venue === "TBA"
+                            {(config.event.venue as any) === "TBA"
                                 ? "Venue — TBA"
                                 : config.event.venueShort}
                         </div>
@@ -208,19 +209,19 @@ export default function HeroSection() {
                 >
                     <div className="relative flex w-full max-w-[450px] items-center justify-center sm:max-w-[550px] lg:max-w-none">
                         {/* Outer gold ring glow */}
-                        <div className="animate-glow-pulse absolute h-[110%] w-[110%] rounded-full bg-amber-300/25 blur-[60px]" />
+                        {/* <div className="animate-glow-pulse absolute h-[110%] w-[110%] rounded-full bg-amber-300/25 blur-[60px]" /> */}
 
                         {/* Inner intense glow */}
-                        <div className="absolute h-[70%] w-[70%] rounded-full bg-amber-200/40 blur-[40px]" />
+                        {/* <div className="absolute h-[70%] w-[70%] rounded-full bg-amber-200/40 blur-[40px]" /> */}
 
                         {/* Rotating outer decoration ring */}
-                        <div
+                        {/* <div
                             className="animate-spin-slow absolute inset-0 m-auto aspect-square w-[95%] rounded-full"
                             style={{
                                 background:
                                     "conic-gradient(from 0deg, transparent 0%, rgba(200,150,12,0.08) 25%, transparent 50%, rgba(200,150,12,0.08) 75%, transparent 100%)",
                             }}
-                        />
+                        /> */}
 
                         <div className="animate-float relative z-10 flex w-full justify-center">
                             <Image
