@@ -3,7 +3,6 @@
 
 import React, { forwardRef } from "react";
 import { QRCodeSVG } from "qrcode.react";
-import Image from "next/image";
 import config from "@/data/rcrc";
 import { unslugify } from "@/lib/function";
 
@@ -50,19 +49,17 @@ const RegistrationTicket = forwardRef<HTMLDivElement, RegistrationTicketProps>(
                             </div>
                             <div className="flex shrink-0 -space-x-2">
                                 <div className="relative h-8 w-8 overflow-hidden rounded-full border-2 border-white bg-white shadow-sm ring-1 ring-slate-100">
-                                    <Image
+                                    <img
                                         src={config.hierarchy[0].logo || ""}
                                         alt="RCCG"
-                                        fill
-                                        className="object-contain p-1"
+                                        className="h-full w-full object-contain p-1"
                                     />
                                 </div>
                                 <div className="relative h-8 w-8 overflow-hidden rounded-full border-2 border-white bg-white shadow-sm ring-1 ring-slate-100">
-                                    <Image
+                                    <img
                                         src={config.hierarchy[1].logo || ""}
                                         alt="CRM"
-                                        fill
-                                        className="object-contain p-1"
+                                        className="h-full w-full object-contain p-1"
                                     />
                                 </div>
                             </div>

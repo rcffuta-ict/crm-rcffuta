@@ -1,7 +1,3 @@
-Here is a professional, comprehensive **README.md** file tailored for your project. You can copy and paste this directly into your repository.
-
----
-
 # Campus Leadership Training (CLT) 2025 Portal
 
 ![CLT 2025 Banner](public/images/og-image.jpg)

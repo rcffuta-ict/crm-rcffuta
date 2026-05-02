@@ -116,18 +116,31 @@ export default function RegistrationForm() {
 
         async function downloadTicket() {
             if (!ticketRef.current) return;
+            const t = toast.loading("Generating ticket...");
             try {
+                // Ensure fonts and images are ready
+                await new Promise((resolve) => setTimeout(resolve, 500));
+
                 const dataUrl = await toPng(ticketRef.current, {
-                    quality: 0.95,
-                    pixelRatio: 2,
+                    quality: 1,
+                    pixelRatio: 3,
                     backgroundColor: "#ffffff",
+                    cacheBust: true,
+                    style: {
+                        transform: "scale(1)",
+                    },
                 });
+
                 const link = document.createElement("a");
                 link.download = `ticket-${ticketData.full_name.replace(/ /g, "-")}.png`;
                 link.href = dataUrl;
                 link.click();
-            } catch {
-                toast.error("Could not download ticket.");
+                toast.success("Ticket downloaded!", { id: t });
+            } catch (error) {
+                console.error("Ticket download error:", error);
+                toast.error("Could not download ticket. Please try again.", {
+                    id: t,
+                });
             }
         }
 
