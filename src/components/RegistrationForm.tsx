@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef, useMemo } from "react";
 import { fellowships } from "@/data/fellowships";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
@@ -30,18 +30,37 @@ export default function RegistrationForm() {
     const [selectedChapter, setSelectedChapter] = useState("");
     const [selectedUnit, setSelectedUnit] = useState("");
     const [gender, setGender] = useState("");
-    const [units, setUnits] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [ticketData, setTicketData] = useState<any>(null);
     const ticketRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        const chapterData = fellowships.find(
+    // Derive units based on selected chapter
+    const units = useMemo(() => {
+        const currentChapter = fellowships.find(
             (f: any) => f.id === selectedChapter,
         );
-        setUnits(chapterData ? [...chapterData.units] : []);
-        setSelectedUnit(""); // reset unit when chapter changes
+        return currentChapter ? [...currentChapter.units] : [];
     }, [selectedChapter]);
+
+    // ── Fellowship options ─────────────────────────────────────────────────
+    const fellowshipOptions = useMemo(() => {
+        return fellowships.map((f: any) => ({
+            value: f.id,
+            label: f.name,
+        }));
+    }, []);
+
+    const unitOptions = useMemo(() => {
+        return [
+            ...units.map((u) => ({ value: u, label: u })),
+            { value: "Other", label: "Other" },
+        ];
+    }, [units]);
+
+    const handleChapterChange = (val: string) => {
+        setSelectedChapter(val);
+        setSelectedUnit(""); // Reset unit when chapter changes
+    };
 
     async function handleSubmit(formData: FormData) {
         setIsLoading(true);
@@ -149,17 +168,6 @@ export default function RegistrationForm() {
         );
     }
 
-    // ── Fellowship options ─────────────────────────────────────────────────
-    const fellowshipOptions = fellowships.map((f: any) => ({
-        value: f.id,
-        label: f.name,
-    }));
-
-    const unitOptions = [
-        ...units.map((u) => ({ value: u, label: u })),
-        { value: "Other", label: "Other" },
-    ];
-
     return (
         <form action={handleSubmit} className="space-y-6">
             {/* Personal details */}
@@ -248,7 +256,7 @@ export default function RegistrationForm() {
                 <CustomSelect
                     name="chapter"
                     value={selectedChapter}
-                    onChange={setSelectedChapter}
+                    onChange={handleChapterChange}
                     placeholder="Select your chapter"
                     required={category !== "Guest"}
                     options={fellowshipOptions}
@@ -257,16 +265,18 @@ export default function RegistrationForm() {
 
             {/* Unit — Students & Alumni only */}
             <AnimatePresence>
-                {(category === "Student" || category === "Alumni") && (
+                {(category.toLowerCase() === "student" ||
+                    category.toLowerCase() === "alumni") && (
                     <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="overflow-hidden"
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        className="space-y-1"
                     >
                         <div className="pt-1">
                             <FormLabel required>Unit / Department</FormLabel>
                             <CustomSelect
+                                key={selectedChapter || "none"}
                                 name="unit"
                                 value={selectedUnit}
                                 onChange={setSelectedUnit}
@@ -277,7 +287,7 @@ export default function RegistrationForm() {
                                 }
                                 required
                                 disabled={!selectedChapter}
-                                options={unitOptions}
+                                options={unitOptions || []}
                             />
                         </div>
                     </motion.div>

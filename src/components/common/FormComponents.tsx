@@ -27,7 +27,13 @@ export function FormLabel({
 // ─────────────────────────────────────────────────────────────────────────────
 // FormGroup — wraps label + input with consistent spacing
 // ─────────────────────────────────────────────────────────────────────────────
-export function FormGroup({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+export function FormGroup({
+    children,
+    className = "",
+}: {
+    children: React.ReactNode;
+    className?: string;
+}) {
     return <div className={`flex flex-col ${className}`}>{children}</div>;
 }
 
@@ -77,16 +83,21 @@ export function CustomSelect({
 
     const selected = options.find((o) => o.value === value);
 
+    console.log("Open", open);
     return (
-        <div ref={ref} className={`relative ${disabled ? "opacity-50 pointer-events-none" : ""}`} id={id}>
+        <div
+            ref={ref}
+            className={`relative ${disabled ? "pointer-events-none opacity-50" : ""}`}
+            id={id}
+        >
             {/* Visually hidden native input for browser validation */}
-            <input 
-                type="text" 
-                name={name} 
-                value={value} 
-                required={required} 
+            <input
+                type="text"
+                name={name}
+                value={value}
+                required={required}
                 readOnly
-                className="absolute inset-0 h-full w-full opacity-0 pointer-events-none"
+                className="pointer-events-none absolute inset-0 h-full w-full opacity-0"
                 tabIndex={-1}
             />
 
@@ -95,17 +106,19 @@ export function CustomSelect({
                 onClick={() => setOpen(!open)}
                 aria-haspopup="listbox"
                 aria-expanded={open}
-                className={`input-base flex w-full cursor-pointer items-center transition-all ${
-                    open ? "border-amber-500 ring-4 ring-amber-500/10 bg-[#fffdf5]" : ""
+                className={`input-base select-base flex w-full cursor-pointer items-center transition-all ${
+                    open
+                        ? "border-amber-500 bg-[#fffdf5] ring-4 ring-amber-500/10"
+                        : ""
                 } ${!selected ? "text-slate-400" : "text-slate-900"}`}
             >
-                <span className="flex-1 truncate font-medium">
+                <span className="flex truncate font-medium">
                     {selected ? selected.label : placeholder}
                 </span>
-                <motion.div 
-                    animate={{ rotate: open ? 180 : 0 }} 
+                <motion.div
+                    animate={{ rotate: open ? 180 : 0 }}
                     transition={{ duration: 0.2, ease: "circOut" }}
-                    className="flex h-5 w-5 items-center justify-center -mr-1"
+                    className="-mr-1 flex h-5 w-5 items-center justify-center"
                 >
                     <ChevronDown className="h-4 w-4 shrink-0 text-slate-400" />
                 </motion.div>
@@ -171,10 +184,21 @@ type RadioGroupProps = {
     required?: boolean;
 };
 
-export function RadioGroup({ name, options, value, onChange, required }: RadioGroupProps) {
+export function RadioGroup({
+    name,
+    options,
+    value,
+    onChange,
+    required,
+}: RadioGroupProps) {
     return (
         <div className="flex gap-3" role="radiogroup">
-            <input type="hidden" name={name} value={value} required={required} />
+            <input
+                type="hidden"
+                name={name}
+                value={value}
+                required={required}
+            />
             {options.map((opt) => {
                 const checked = value === opt.value;
                 return (
@@ -228,7 +252,13 @@ type CheckboxProps = {
     id?: string;
 };
 
-export function CustomCheckbox({ name, label, checked, onChange, id }: CheckboxProps) {
+export function CustomCheckbox({
+    name,
+    label,
+    checked,
+    onChange,
+    id,
+}: CheckboxProps) {
     return (
         <button
             type="button"
@@ -254,12 +284,17 @@ export function CustomCheckbox({ name, label, checked, onChange, id }: CheckboxP
                             exit={{ scale: 0, opacity: 0 }}
                             transition={{ duration: 0.15 }}
                         >
-                            <Check className="h-3 w-3 text-white" strokeWidth={3} />
+                            <Check
+                                className="h-3 w-3 text-white"
+                                strokeWidth={3}
+                            />
                         </motion.div>
                     )}
                 </AnimatePresence>
             </span>
-            <span className="text-sm font-medium text-slate-700 group-hover:text-slate-900">{label}</span>
+            <span className="text-sm font-medium text-slate-700 group-hover:text-slate-900">
+                {label}
+            </span>
         </button>
     );
 }

@@ -124,7 +124,7 @@ const config = {
     ministers: [
         {
             id: "m1",
-            role: "Presiding Minister",
+            role: "Zonal Coordinator",
             name: "TBA",
             church: "TBA",
             picture: "", // e.g. "/images/ministers/pastor-john.jpg"
