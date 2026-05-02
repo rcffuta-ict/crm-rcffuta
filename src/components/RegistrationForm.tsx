@@ -138,9 +138,12 @@ export default function RegistrationForm() {
                 toast.success("Ticket downloaded!", { id: t });
             } catch (error) {
                 console.error("Ticket download error:", error);
-                toast.error("Could not download ticket. Please try again.", {
-                    id: t,
-                });
+                toast.error(
+                    "Could not download ticket. Please take a screenshot",
+                    {
+                        id: t,
+                    },
+                );
             }
         }
 

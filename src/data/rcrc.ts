@@ -1,7 +1,7 @@
 /**
  * ╔══════════════════════════════════════════════════════════╗
  * ║          crm-rcffuta — Event Configuration File          ║
- * ║       Zonal Congress 2025 · Theme: Steadfast             ║
+ * ║       Zonal Congress 2026 · Theme: Steadfast             ║
  * ║  Edit this file to control all content on the site.     ║
  * ╚══════════════════════════════════════════════════════════╝
  *
@@ -15,7 +15,7 @@ const config = {
     // ─── SITE META ────────────────────────────────────────────
     site: {
         url: "https://crm.rcffuta.com",
-        title: "Zonal Congress 2025 | CRM x RCFFUTA — Steadfast",
+        title: "Zonal Congress 2026 | CRM x RCFFUTA — Steadfast",
         description:
             "The Zonal Congress of the Redeemed Christian Fellowship, Ondo Zone. " +
             "Themed 'Steadfast' — a convergence of student leaders, ministers, and Kingdom ambassadors.",
@@ -34,7 +34,7 @@ const config = {
     // ─── EVENT DETAILS ────────────────────────────────────────
     event: {
         name: "Zonal Congress",
-        edition: "2025",
+        edition: "2026",
         theme: "Steadfast",
 
         // Path to the theme logo image in /public
@@ -43,7 +43,7 @@ const config = {
         subtitle: "Unshaken. Unmoved. Established in Him.",
         slogan: '"For we are more than conquerors"',
 
-        // Set to actual date string when confirmed, e.g. "Nov 14–16, 2025"
+        // Set to actual date string when confirmed, e.g. "Nov 14–16, 2026"
         date: "May 28th - 31st, 2026",
 
         // Full venue name for details section

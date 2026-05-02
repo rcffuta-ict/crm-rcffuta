@@ -75,7 +75,7 @@ export async function submitRegistration(formData: FormData) {
 
     return {
         success: true,
-        message: "Registration successful! See you at CLT 2025.",
+        message: "Registration successful! See you there!",
         id: data.id,
         data,
     };

@@ -169,7 +169,7 @@ export default function AdminDashboard() {
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;
-        link.download = `ZonalCongress2025_Registrations_${new Date().toISOString().split("T")[0]}.csv`;
+        link.download = `ZonalCongress_Registrations_${new Date().toISOString().split("T")[0]}.csv`;
         link.click();
     };
 
@@ -202,7 +202,15 @@ export default function AdminDashboard() {
             }))
             .sort((a, b) => b.count - a.count);
 
-        return { total, students, alumni, guests, males, females, chapterStats };
+        return {
+            total,
+            students,
+            alumni,
+            guests,
+            males,
+            females,
+            chapterStats,
+        };
     }, [data]);
 
     // --- 6. FILTERING & PAGINATION ---
@@ -254,13 +262,15 @@ export default function AdminDashboard() {
                     </div>
                     <form onSubmit={handleLogin} className="space-y-6">
                         <div className="space-y-2">
-                            <label className="text-[10px] font-bold tracking-widest text-slate-400 uppercase">Passcode</label>
+                            <label className="text-[10px] font-bold tracking-widest text-slate-400 uppercase">
+                                Passcode
+                            </label>
                             <input
                                 type="password"
                                 value={passcode}
                                 onChange={(e) => setPasscode(e.target.value)}
                                 placeholder="••••••••"
-                                className="w-full rounded-2xl border border-slate-200 bg-slate-50/50 px-5 py-4 text-center text-lg font-bold tracking-widest focus:border-amber-400 focus:bg-white focus:ring-4 focus:ring-amber-400/10 focus:outline-none transition-all"
+                                className="w-full rounded-2xl border border-slate-200 bg-slate-50/50 px-5 py-4 text-center text-lg font-bold tracking-widest transition-all focus:border-amber-400 focus:bg-white focus:ring-4 focus:ring-amber-400/10 focus:outline-none"
                                 autoFocus
                             />
                         </div>
@@ -292,15 +302,18 @@ export default function AdminDashboard() {
                             AC
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-sm font-black tracking-tight text-slate-900 uppercase">Zonal Congress Admin</span>
-                            <div className="flex items-center gap-1.5 mt-0.5">
-                                {process.env.NEXT_PUBLIC_APP_ACTIVE === "true" ? (
-                                    <span className="flex items-center gap-1 text-[9px] font-bold text-green-600 uppercase tracking-widest">
+                            <span className="text-sm font-black tracking-tight text-slate-900 uppercase">
+                                Zonal Congress Admin
+                            </span>
+                            <div className="mt-0.5 flex items-center gap-1.5">
+                                {process.env.NEXT_PUBLIC_APP_ACTIVE ===
+                                "true" ? (
+                                    <span className="flex items-center gap-1 text-[9px] font-bold tracking-widest text-green-600 uppercase">
                                         <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-green-600"></span>
                                         Realtime Active
                                     </span>
                                 ) : (
-                                    <span className="flex items-center gap-1 text-[9px] font-bold text-red-600 uppercase tracking-widest">
+                                    <span className="flex items-center gap-1 text-[9px] font-bold tracking-widest text-red-600 uppercase">
                                         <span className="h-1.5 w-1.5 rounded-full bg-red-600"></span>
                                         Registration Closed
                                     </span>
@@ -323,7 +336,7 @@ export default function AdminDashboard() {
                         </button>
                         <button
                             onClick={downloadCSV}
-                            className="flex items-center gap-2 rounded-xl bg-green-600 px-5 py-2.5 text-xs font-black tracking-widest text-white uppercase shadow-lg shadow-green-600/20 transition-all hover:bg-green-500 hover:scale-[1.02] active:scale-[0.98]"
+                            className="flex items-center gap-2 rounded-xl bg-green-600 px-5 py-2.5 text-xs font-black tracking-widest text-white uppercase shadow-lg shadow-green-600/20 transition-all hover:scale-[1.02] hover:bg-green-500 active:scale-[0.98]"
                         >
                             <Download className="h-4 w-4" /> Export CSV
                         </button>
@@ -372,7 +385,7 @@ export default function AdminDashboard() {
                                 {stats.chapterStats.length} Active Chapters
                             </div>
                         </div>
-                        <div className="max-h-[360px] space-y-5 overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-slate-200 scrollbar-track-transparent">
+                        <div className="scrollbar-thin scrollbar-thumb-slate-200 scrollbar-track-transparent max-h-[360px] space-y-5 overflow-y-auto pr-4">
                             {stats.chapterStats.map((chap, i) => (
                                 <div key={chap.id} className="group space-y-2">
                                     <div className="flex justify-between text-sm">
@@ -418,12 +431,16 @@ export default function AdminDashboard() {
                                 <p className="mb-1 text-[9px] font-black tracking-[0.2em] text-slate-400 uppercase">
                                     Recent Entry
                                 </p>
-                                <p className="truncate text-lg font-black text-slate-900 leading-tight">
+                                <p className="truncate text-lg leading-tight font-black text-slate-900">
                                     {data[0]?.full_name || "Syncing..."}
                                 </p>
                                 <div className="mt-2 flex items-center gap-1.5 text-[10px] font-bold text-amber-600">
                                     <Clock className="h-3.5 w-3.5" />
-                                    {data[0] ? timeAgo(data[0].created_at).toUpperCase() : "-"}
+                                    {data[0]
+                                        ? timeAgo(
+                                              data[0].created_at,
+                                          ).toUpperCase()
+                                        : "-"}
                                 </div>
                             </div>
                         </div>
@@ -436,27 +453,56 @@ export default function AdminDashboard() {
                             <div className="space-y-6">
                                 <div className="flex items-center justify-between">
                                     <div className="flex flex-col">
-                                        <span className="text-[10px] font-black tracking-widest text-slate-400 uppercase">Male</span>
-                                        <span className="text-2xl font-black text-slate-900">{stats.males}</span>
+                                        <span className="text-[10px] font-black tracking-widest text-slate-400 uppercase">
+                                            Male
+                                        </span>
+                                        <span className="text-2xl font-black text-slate-900">
+                                            {stats.males}
+                                        </span>
                                     </div>
                                     <div className="flex flex-col text-right">
-                                        <span className="text-[10px] font-black tracking-widest text-slate-400 uppercase">Female</span>
-                                        <span className="text-2xl font-black text-slate-900">{stats.females}</span>
+                                        <span className="text-[10px] font-black tracking-widest text-slate-400 uppercase">
+                                            Female
+                                        </span>
+                                        <span className="text-2xl font-black text-slate-900">
+                                            {stats.females}
+                                        </span>
                                     </div>
                                 </div>
-                                <div className="relative h-3 w-full overflow-hidden rounded-full bg-slate-100 flex">
-                                    <div 
+                                <div className="relative flex h-3 w-full overflow-hidden rounded-full bg-slate-100">
+                                    <div
                                         className="h-full bg-amber-500 shadow-[0_0_12px_rgba(245,158,11,0.4)] transition-all duration-1000"
-                                        style={{ width: `${stats.total ? (stats.males / stats.total) * 100 : 50}%` }}
+                                        style={{
+                                            width: `${stats.total ? (stats.males / stats.total) * 100 : 50}%`,
+                                        }}
                                     />
-                                    <div 
+                                    <div
                                         className="h-full bg-slate-400/30 transition-all duration-1000"
-                                        style={{ width: `${stats.total ? (stats.females / stats.total) * 100 : 50}%` }}
+                                        style={{
+                                            width: `${stats.total ? (stats.females / stats.total) * 100 : 50}%`,
+                                        }}
                                     />
                                 </div>
-                                <div className="flex justify-between text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
-                                    <span>{stats.total ? Math.round((stats.males / stats.total) * 100) : 0}% Boys</span>
-                                    <span>{stats.total ? Math.round((stats.females / stats.total) * 100) : 0}% Girls</span>
+                                <div className="flex justify-between text-[10px] font-bold tracking-tighter text-slate-400 uppercase">
+                                    <span>
+                                        {stats.total
+                                            ? Math.round(
+                                                  (stats.males / stats.total) *
+                                                      100,
+                                              )
+                                            : 0}
+                                        % Boys
+                                    </span>
+                                    <span>
+                                        {stats.total
+                                            ? Math.round(
+                                                  (stats.females /
+                                                      stats.total) *
+                                                      100,
+                                              )
+                                            : 0}
+                                        % Girls
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -473,7 +519,8 @@ export default function AdminDashboard() {
                                     </p>
                                     <div className="flex items-end justify-between">
                                         <p className="max-w-[180px] truncate text-xl font-black text-amber-600">
-                                            {stats.chapterStats[0]?.name || "N/A"}
+                                            {stats.chapterStats[0]?.name ||
+                                                "N/A"}
                                         </p>
                                     </div>
                                 </div>
@@ -482,12 +529,19 @@ export default function AdminDashboard() {
                                     <div className="flex justify-between text-[10px] font-black tracking-widest text-slate-500 uppercase">
                                         <span>Student Population</span>
                                         <span className="text-slate-900">
-                                            {stats.total ? Math.round((stats.students / stats.total) * 100) : 0}%
+                                            {stats.total
+                                                ? Math.round(
+                                                      (stats.students /
+                                                          stats.total) *
+                                                          100,
+                                                  )
+                                                : 0}
+                                            %
                                         </span>
                                     </div>
                                     <div className="h-3 w-full overflow-hidden rounded-full bg-slate-50">
                                         <div
-                                            className="h-full rounded-full bg-gradient-to-r from-slate-800 to-slate-900 transition-all duration-1000 shadow-sm"
+                                            className="h-full rounded-full bg-gradient-to-r from-slate-800 to-slate-900 shadow-sm transition-all duration-1000"
                                             style={{
                                                 width: `${stats.total ? (stats.students / stats.total) * 100 : 0}%`,
                                             }}
@@ -512,7 +566,7 @@ export default function AdminDashboard() {
                                 placeholder="Search attendees..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full rounded-2xl border border-slate-100 bg-slate-50/50 py-3 pr-5 pl-12 text-sm font-medium focus:border-amber-400 focus:bg-white focus:ring-4 focus:ring-amber-400/10 focus:outline-none transition-all sm:w-80"
+                                className="w-full rounded-2xl border border-slate-100 bg-slate-50/50 py-3 pr-5 pl-12 text-sm font-medium transition-all focus:border-amber-400 focus:bg-white focus:ring-4 focus:ring-amber-400/10 focus:outline-none sm:w-80"
                             />
                         </div>
                     </div>
@@ -523,18 +577,32 @@ export default function AdminDashboard() {
                                 <tr>
                                     <th className="px-8 py-5">Full Name</th>
                                     <th className="px-8 py-5">Category</th>
-                                    <th className="px-8 py-5">Fellowship Info</th>
-                                    <th className="px-8 py-5 whitespace-nowrap">Timestamp</th>
-                                    <th className="px-8 py-5 text-right">View</th>
+                                    <th className="px-8 py-5">
+                                        Fellowship Info
+                                    </th>
+                                    <th className="px-8 py-5 whitespace-nowrap">
+                                        Timestamp
+                                    </th>
+                                    <th className="px-8 py-5 text-right">
+                                        View
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-100">
                                 {paginatedData.map((row) => {
-                                    const fellowshipName = fellowships.find((f) => f.id === row.chapter)?.short || row.chapter || "-";
+                                    const fellowshipName =
+                                        fellowships.find(
+                                            (f) => f.id === row.chapter,
+                                        )?.short ||
+                                        row.chapter ||
+                                        "-";
                                     return (
-                                        <tr key={row.id} className="group transition-colors hover:bg-slate-50/50">
+                                        <tr
+                                            key={row.id}
+                                            className="group transition-colors hover:bg-slate-50/50"
+                                        >
                                             <td className="px-8 py-5">
-                                                <div className="font-bold text-slate-900 group-hover:text-amber-600 transition-colors">
+                                                <div className="font-bold text-slate-900 transition-colors group-hover:text-amber-600">
                                                     {row.full_name}
                                                 </div>
                                                 <div className="text-[10px] font-medium text-slate-400">
@@ -542,11 +610,17 @@ export default function AdminDashboard() {
                                                 </div>
                                             </td>
                                             <td className="px-8 py-5">
-                                                <span className={`inline-flex rounded-lg px-2.5 py-1 text-[10px] font-black tracking-widest uppercase ${
-                                                    row.category === "Student" ? "bg-green-50 text-green-700" : 
-                                                    row.category === "Alumni" ? "bg-slate-100 text-slate-700" : 
-                                                    "bg-amber-50 text-amber-700"
-                                                }`}>
+                                                <span
+                                                    className={`inline-flex rounded-lg px-2.5 py-1 text-[10px] font-black tracking-widest uppercase ${
+                                                        row.category ===
+                                                        "Student"
+                                                            ? "bg-green-50 text-green-700"
+                                                            : row.category ===
+                                                                "Alumni"
+                                                              ? "bg-slate-100 text-slate-700"
+                                                              : "bg-amber-50 text-amber-700"
+                                                    }`}
+                                                >
                                                     {row.category}
                                                 </span>
                                             </td>
@@ -554,11 +628,11 @@ export default function AdminDashboard() {
                                                 <div className="font-bold text-slate-800">
                                                     {fellowshipName}
                                                 </div>
-                                                <div className="max-w-[150px] truncate text-[10px] font-medium text-slate-400 uppercase tracking-widest">
+                                                <div className="max-w-[150px] truncate text-[10px] font-medium tracking-widest text-slate-400 uppercase">
                                                     {row.unit || "N/A"}
                                                 </div>
                                             </td>
-                                            <td className="px-8 py-5 whitespace-nowrap text-[11px] font-medium text-slate-500 uppercase">
+                                            <td className="px-8 py-5 text-[11px] font-medium whitespace-nowrap text-slate-500 uppercase">
                                                 {timeAgo(row.created_at)}
                                             </td>
                                             <td className="px-8 py-5 text-right">
@@ -576,12 +650,18 @@ export default function AdminDashboard() {
                                 })}
                                 {filteredData.length === 0 && (
                                     <tr>
-                                        <td colSpan={5} className="px-8 py-16 text-center">
+                                        <td
+                                            colSpan={5}
+                                            className="px-8 py-16 text-center"
+                                        >
                                             <div className="flex flex-col items-center gap-3">
                                                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-50 text-slate-300">
                                                     <Search className="h-6 w-6" />
                                                 </div>
-                                                <p className="text-sm font-medium text-slate-400">No matching registry entries found.</p>
+                                                <p className="text-sm font-medium text-slate-400">
+                                                    No matching registry entries
+                                                    found.
+                                                </p>
                                             </div>
                                         </td>
                                     </tr>
@@ -598,16 +678,24 @@ export default function AdminDashboard() {
                             </div>
                             <div className="flex gap-3">
                                 <button
-                                    onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                                    onClick={() =>
+                                        setCurrentPage((p) =>
+                                            Math.max(1, p - 1),
+                                        )
+                                    }
                                     disabled={currentPage === 1}
-                                    className="rounded-xl border border-slate-200 bg-white px-5 py-2 text-xs font-bold text-slate-600 shadow-sm transition-all hover:bg-slate-50 active:scale-95 disabled:opacity-30 disabled:pointer-events-none"
+                                    className="rounded-xl border border-slate-200 bg-white px-5 py-2 text-xs font-bold text-slate-600 shadow-sm transition-all hover:bg-slate-50 active:scale-95 disabled:pointer-events-none disabled:opacity-30"
                                 >
                                     Previous
                                 </button>
                                 <button
-                                    onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                                    onClick={() =>
+                                        setCurrentPage((p) =>
+                                            Math.min(totalPages, p + 1),
+                                        )
+                                    }
                                     disabled={currentPage === totalPages}
-                                    className="rounded-xl border border-slate-200 bg-white px-5 py-2 text-xs font-bold text-slate-600 shadow-sm transition-all hover:bg-slate-50 active:scale-95 disabled:opacity-30 disabled:pointer-events-none"
+                                    className="rounded-xl border border-slate-200 bg-white px-5 py-2 text-xs font-bold text-slate-600 shadow-sm transition-all hover:bg-slate-50 active:scale-95 disabled:pointer-events-none disabled:opacity-30"
                                 >
                                     Next
                                 </button>
@@ -635,10 +723,12 @@ function StatCard({
     return (
         <div className="group relative flex h-full flex-col justify-between overflow-hidden rounded-[2rem] border border-slate-200/60 bg-white p-8 shadow-xl shadow-slate-200/10 transition-all hover:-translate-y-1 hover:shadow-2xl">
             <div className="mb-8 flex items-start justify-between">
-                <div className={`flex h-12 w-12 items-center justify-center rounded-2xl shadow-lg transition-transform group-hover:scale-110 ${color}`}>
+                <div
+                    className={`flex h-12 w-12 items-center justify-center rounded-2xl shadow-lg transition-transform group-hover:scale-110 ${color}`}
+                >
                     <Icon className="h-6 w-6" />
                 </div>
-                <div className="h-10 w-10 opacity-5 grayscale group-hover:opacity-20 group-hover:grayscale-0 transition-all">
+                <div className="h-10 w-10 opacity-5 grayscale transition-all group-hover:opacity-20 group-hover:grayscale-0">
                     <Icon className="h-full w-full" />
                 </div>
             </div>
