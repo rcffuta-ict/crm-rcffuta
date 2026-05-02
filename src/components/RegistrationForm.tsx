@@ -11,7 +11,7 @@ import {
     Download,
     CalendarX,
 } from "lucide-react";
-import { toPng } from "html-to-image";
+import { toBlob } from "html-to-image";
 import { submitRegistration } from "@/actions/form.action";
 import config from "@/data/rcrc";
 import RegistrationTicket from "./RegistrationTicket";
@@ -119,30 +119,39 @@ export default function RegistrationForm() {
             const t = toast.loading("Generating ticket...");
             try {
                 // Ensure fonts and images are ready
-                await new Promise((resolve) => setTimeout(resolve, 500));
+                await new Promise((resolve) => setTimeout(resolve, 800));
 
-                const dataUrl = await toPng(ticketRef.current, {
+                // We try toBlob as it is often more reliable than toPng for large images
+                const blob = await toBlob(ticketRef.current, {
                     quality: 1,
-                    pixelRatio: 3,
+                    pixelRatio: 2,
                     backgroundColor: "#ffffff",
                     cacheBust: true,
                     style: {
                         transform: "scale(1)",
+                        margin: "0",
                     },
                 });
 
+                if (!blob) {
+                    throw new Error("Failed to generate image blob");
+                }
+
+                const url = window.URL.createObjectURL(blob);
                 const link = document.createElement("a");
                 link.download = `ticket-${ticketData.full_name.replace(/ /g, "-")}.png`;
-                link.href = dataUrl;
+                link.href = url;
                 link.click();
+
+                // Clean up the URL object
+                setTimeout(() => window.URL.revokeObjectURL(url), 100);
+
                 toast.success("Ticket downloaded!", { id: t });
             } catch (error) {
                 console.error("Ticket download error:", error);
                 toast.error(
-                    "Could not download ticket. Please take a screenshot",
-                    {
-                        id: t,
-                    },
+                    "Could not download ticket. Please take a screenshot.",
+                    { id: t },
                 );
             }
         }

@@ -2,7 +2,7 @@
 "use client";
 
 import React, { forwardRef } from "react";
-import { QRCodeSVG } from "qrcode.react";
+import { QRCodeCanvas } from "qrcode.react";
 import config from "@/data/rcrc";
 import { unslugify } from "@/lib/function";
 
@@ -52,6 +52,7 @@ const RegistrationTicket = forwardRef<HTMLDivElement, RegistrationTicketProps>(
                                     <img
                                         src={config.hierarchy[0].logo || ""}
                                         alt="RCCG"
+                                        crossOrigin="anonymous"
                                         className="h-full w-full object-contain p-1"
                                     />
                                 </div>
@@ -59,6 +60,7 @@ const RegistrationTicket = forwardRef<HTMLDivElement, RegistrationTicketProps>(
                                     <img
                                         src={config.hierarchy[1].logo || ""}
                                         alt="CRM"
+                                        crossOrigin="anonymous"
                                         className="h-full w-full object-contain p-1"
                                     />
                                 </div>
@@ -105,7 +107,7 @@ const RegistrationTicket = forwardRef<HTMLDivElement, RegistrationTicketProps>(
 
                             <div className="flex shrink-0 flex-col items-center gap-2">
                                 <div className="rounded-2xl border border-slate-100 bg-slate-50 p-3 shadow-inner">
-                                    <QRCodeSVG
+                                    <QRCodeCanvas
                                         value={ticketUrl}
                                         size={110}
                                         level="H"
