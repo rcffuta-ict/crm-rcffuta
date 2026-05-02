@@ -1,189 +1,132 @@
-# Campus Leadership Training (CLT) 2025 Portal
+# CRM x RCFFUTA | Unified Event Portal
 
-![CLT 2025 Banner](public/images/og-image.jpg)
+![Unified Portal Banner](public/images/og-image.png)
 
-> **Official Registration & Event Portal for the CRM Ondo Zone Campus Leadership Training.**  
-> _Hosted by RCF FUTA Chapter | November 21, 2025_
+<div align="center">
+  <img src="public/images/logos/rccg.png" height="60" alt="RCCG Logo" />
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="public/images/logos/crm.png" height="60" alt="CRM Logo" />
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="public/images/logos/fellowships/rcf-futa.jpeg" height="60" alt="RCFFUTA Logo" />
+</div>
 
-## 📋 Overview
-
-This application serves as the central hub for **CLT 2025**, a major convergence of student leaders across the Ondo Zone. It handles attendee registration, dynamic digital ticket generation, and provides a real-time administrative dashboard for event organizers.
-
-Built with performance and user experience in mind, the site features a "Mantle" themed UI (Gold/Amber & Dark Slate) combined with a high-performance Serverless backend.
-
-## 🚀 Tech Stack
-
-### Core Framework
-
-- **[Next.js 15](https://nextjs.org/)** (App Router, Server Actions)
-- **[TypeScript](https://www.typescriptlang.org/)** (Strict type safety)
-- **[Tailwind CSS v4](https://tailwindcss.com/)** (Zero-runtime styling)
-
-### Backend & Database
-
-- **[Supabase](https://supabase.com/)** (PostgreSQL Database)
-- **Supabase Realtime** (Websockets for live admin updates)
-- **Row Level Security (RLS)** (Data protection)
-
-### UI & Animations
-
-- **[Framer Motion](https://www.framer.com/motion/)** (Complex scroll animations & transitions)
-- **[Lucide React](https://lucide.dev/)** (Iconography)
-- **[Sonner](https://sonner.emilkowal.ski/)** (Toast notifications)
-
-### Utilities
-
-- **[Zod](https://zod.dev/)** (Server-side form validation)
-- **[html-to-image](https://github.com/bubkoo/html-to-image)** (Ticket image generation)
-- **[qrcode.react](https://github.com/zpao/qrcode.react)** (QR Code generation)
+> **The official, reusable event registration and management system for Christ The Redeemer’s Ministries (CRM).**  
+> _A collaborative effort between CRM and the RCFFUTA ICT Team. Exclusively Open Source._
 
 ---
 
-## ✨ Key Features
+## 📋 Overview
 
-### 👤 User Experience
+This repository serves as a robust, high-performance template for all CRM events where RCFFUTA provides technical support. It is designed to be rapidly deployed and configured for any congress, training, or gathering.
 
-- **Cinematic Landing Page:** Parallax hero section with "The Mantle" theme.
-- **Dynamic Registration:** Form adapts based on Category (Student/Alumni/Guest).
-- **Smart Logic:** Auto-populates Units based on selected Fellowship Chapter.
-- **Digital Ticket:** Generates a downloadable, high-res PNG tag with a unique QR code immediately after registration.
-- **Verification Page:** Publicly accessible dynamic route (`/attendees/[id]`) to verify tags.
+Hosted permanently at **[crm.rcffuta.com](https://crm.rcffuta.com)**, the portal handles:
+- **Dynamic Landing Pages**: Cinematic UI with theme-based branding.
+- **Attendee Registration**: Adaptive forms with validation and smart logic.
+- **Digital Ticketing**: Instant high-resolution PNG ticket generation with unique QR codes.
+- **Admin Dashboard**: Real-time analytics, live registration feeds, and data export.
 
-### 🛡️ Admin Dashboard
+---
 
-- **Real-time Updates:** Dashboard refreshes automatically via Supabase Sockets when new users register.
-- **Analytics:** Live counters for Students, Alumni, Guests, and Total Attendees.
-- **Leaderboard:** Visual ranking of Fellowships by attendance count.
-- **Data Management:** Searchable table with pagination.
-- **Export:** One-click CSV export for Excel integration.
+## ⚙️ Content Configuration (RCRC Config)
+
+The entire application is controlled via a single source of truth: `src/data/rcrc.ts`.
+
+Whenever a new event is called for, simply update this file to change:
+- **Event Identity**: Name, theme, date, and venue.
+- **Branding**: Hierarchy logos (RCCG, CRM, RCFFUTA) and theme-specific assets.
+- **Navigation**: Custom links and section targets.
+- **Dynamic Sections**: Guest ministers, fellowship lists, and the event schedule.
+- **Registration Toggle**: Enable or disable the registration form with a single boolean.
+
+---
+
+## 🖼️ Assets & OpenGraph
+
+To ensure the site looks premium across social media and search engines:
+
+- **OG Images**: Replace `public/images/og-image.png` with the event-specific banner.
+- **Favicons**: Update icons in the `public/` root for site-wide branding.
+- **Theming**: The UI uses Tailwind CSS tokens defined in `globals.css` and `rcrc.ts` to match the event's "Mantle" or "Cinematic" aesthetic.
+
+---
+
+## 🚀 Tech Stack
+
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router, Server Actions, Turbopack)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **Database**: [Supabase](https://supabase.com/) (PostgreSQL + Realtime Sockets)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Generation**: [html-to-image](https://github.com/bubkoo/html-to-image) & [qrcode.react](https://github.com/zpao/qrcode.react)
 
 ---
 
 ## 🛠️ Getting Started
 
 ### Prerequisites
-
-- Node.js 18+
-- npm or yarn
+- Node.js 20+
+- pnpm (Recommended)
 
 ### Installation
+1. **Clone & Install**:
+   ```bash
+   git clone https://github.com/rcffuta/crm-rcffuta.git
+   cd crm-rcffuta
+   pnpm install
+   ```
 
-1.  **Clone the repository:**
+2. **Environment Setup**:
+   Create a `.env.local` based on `.env.example`:
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=...
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+   SUPABASE_SERVICE_ROLE_KEY=...
+   ADMIN_PASSWORD=...
+   NEXT_PUBLIC_SITE_URL=https://crm.rcffuta.com
+   ```
 
-    ```bash
-    git clone https://github.com/your-username/clt-2025.git
-    cd clt-2025
-    ```
-
-2.  **Install dependencies:**
-
-    ```bash
-    npm install
-    ```
-
-3.  **Set up Environment Variables:**
-    Create a `.env.local` file in the root directory:
-
-    ```env
-    # Supabase Connection
-    NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
-    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-
-    # Admin Privileges (Required for Registration Server Action to return ID)
-    SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
-
-    # Simple Admin Gate Password
-    ADMIN_PASSWORD=
-
-    # Site URL (For Metadata)
-    NEXT_PUBLIC_SITE_URL=http://localhost:3000
-    ```
-
-4.  **Run the development server:**
-
-    ```bash
-    npm run dev
-    ```
-
-5.  Open [http://localhost:3000](http://localhost:3000) in your browser.
-
----
-
-## 🗄️ Database Schema
-
-Run the following SQL in your Supabase SQL Editor to set up the database:
-
-```sql
--- Create Registrations Table
-CREATE TABLE registrations (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
-  full_name TEXT NOT NULL,
-  email TEXT,
-  phone_number TEXT NOT NULL,
-  gender TEXT NOT NULL,
-  category TEXT NOT NULL,
-  chapter TEXT,
-  unit TEXT,
-  expectations TEXT
-);
-
--- Enable Security
-ALTER TABLE registrations ENABLE ROW LEVEL SECURITY;
-
--- Policies
-CREATE POLICY "Enable insert for public" ON registrations FOR INSERT WITH CHECK (true);
-CREATE POLICY "Enable read for authenticated users only" ON registrations FOR SELECT TO authenticated USING (true);
-```
+3. **Run Development**:
+   ```bash
+   pnpm dev
+   ```
 
 ---
 
 ## 📂 Project Structure
 
-```
-├── app/
-│   ├── actions/       # Server Actions (Form submit, Admin fetch)
-│   ├── admin/         # Admin Dashboard Page
-│   ├── attendees/     # Dynamic Verification Page [id]
-│   ├── components/    # Reusable React Components
-│   ├── data/          # Static Data (Fellowships, Ministers)
-│   ├── lib/           # Utilities (Supabase client, formatters)
-│   ├── layout.tsx     # Root Layout & SEO
-│   └── page.tsx       # Landing Page
-├── public/            # Static Assets (Images, Logos)
+```text
+├── src/
+│   ├── app/           # Next.js Routes (Landing, Admin, Verification)
+│   ├── actions/       # Server-side logic & Database mutations
+│   ├── components/    # Reusable UI components & Layout blocks
+│   ├── data/          # Central Config (rcrc.ts) & Fellowships
+│   ├── lib/           # Supabase client, utilities & helpers
+│   └── globals.css    # Design system & Tailwind layers
+├── public/            # Logos, banners, and static assets
 └── ...config files
 ```
 
 ---
 
-## 🚀 Deployment
+## 🔓 Open Source & Collaboration
 
-This project is optimized for deployment on **Vercel**.
+This project is **exclusively open source**. We believe in building Kingdom tools that are accessible, transparent, and community-driven. 
 
-1.  Push code to GitHub.
-2.  Import project to Vercel.
-3.  Add the **Environment Variables** in the Vercel Dashboard.
-4.  Deploy!
-
----
-
-## 🤝 Contributing
-
-1.  Fork the Project
-2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4.  Push to the Branch (`git push origin feature/AmazingFeature`)
-5.  Open a Pull Request
+If you are part of the RCFFUTA ICT team or a CRM partner:
+1. Fork the repo.
+2. Create an event-specific branch.
+3. Update `rcrc.ts`.
+4. Deploy to Vercel via the unified dashboard.
 
 ---
 
-## 👥 Authors
+## 👥 Maintained By
 
-**RCF FUTA ICT Team**
+**RCF FUTA ICT Team**  
+*"Innovating for the Kingdom"*
 
-- Website: [ict.rcffuta.com](https://ict.rcffuta.com)
-- Email: ict@rcffuta.com
+- **Website**: [ict.rcffuta.com](https://ict.rcffuta.com)
+- **Dashboard**: [crm.rcffuta.com](https://crm.rcffuta.com)
 
 ---
 
-© 2025 Christ Redeemer's Ministries (CRM) Ondo Zone. All Rights Reserved.
+© 2026 Christ Redeemer's Ministries (CRM). Powered by RCFFUTA ICT.
