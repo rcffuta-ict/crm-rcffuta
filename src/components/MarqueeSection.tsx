@@ -49,9 +49,8 @@ export function FellowshipsSection() {
 
                 {/* Interactive panel */}
                 <div className="grid gap-5 lg:grid-cols-[320px_1fr]">
-
-                    {/* Left: fellowship list */}
-                    <div className="card rounded-3xl p-2 shadow-sm">
+                    {/* Left: fellowship list (Desktop only) */}
+                    <div className="hidden card rounded-3xl p-2 shadow-sm lg:block">
                         <div className="max-h-[520px] overflow-y-auto">
                             <div className="space-y-0.5 p-2">
                                 {merged.map((f, i) => (
@@ -99,20 +98,58 @@ export function FellowshipsSection() {
                         </div>
                     </div>
 
-                    {/* Right: detail panel */}
-                    <div className="card relative min-h-[400px] overflow-hidden rounded-3xl shadow-sm">
-                        {/* Top accent stripe */}
-                        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-400 via-amber-500 to-green-500" />
+                    {/* Main area: Logo Carousel (Mobile only) + Detail Panel */}
+                    <div className="flex min-w-0 flex-col gap-5">
+                        {/* Mobile Logo Carousel with Gradient Fade */}
+                        <div className="relative lg:hidden">
+                            <div className="pointer-events-none absolute top-0 bottom-0 left-0 z-10 w-8 bg-gradient-to-r from-[#fafaf8] to-transparent" />
+                            <div className="pointer-events-none absolute top-0 right-0 bottom-0 z-10 w-8 bg-gradient-to-l from-[#fafaf8] to-transparent" />
+                            
+                            <div className="scrollbar-hide flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 py-6">
+                                {merged.map((f) => (
+                                    <button
+                                        key={f.id}
+                                        onClick={() => setSelected(f)}
+                                        className={`relative h-18 w-18 shrink-0 snap-center rounded-[1.5rem] border-2 transition-all duration-300 ${
+                                            selected.id === f.id
+                                                ? "border-amber-500 bg-amber-50 ring-8 ring-amber-500/10 scale-110 shadow-xl shadow-amber-200/40"
+                                                : "border-slate-200 bg-white opacity-60 grayscale hover:grayscale-0"
+                                        }`}
+                                    >
+                                        {f.logo && !f.logo.startsWith("bg-") ? (
+                                            <Image src={f.logo} alt={f.short} fill className="object-contain p-3" />
+                                        ) : (
+                                            <span className="text-sm font-black text-slate-400">
+                                                {f.short.split(" ").pop()?.substring(0, 2)}
+                                            </span>
+                                        )}
+                                        
+                                        {/* Active indicator dot */}
+                                        {selected.id === f.id && (
+                                            <motion.div 
+                                                layoutId="active-dot"
+                                                className="absolute -bottom-1 left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-amber-500" 
+                                            />
+                                        )}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
 
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={selected.id}
-                                initial={{ opacity: 0, y: 16 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -16 }}
-                                transition={{ duration: 0.25 }}
-                                className="flex h-full flex-col p-8 md:p-10"
-                            >
+                        {/* Right: detail panel */}
+                        <div className="card relative min-h-[380px] overflow-hidden rounded-[2.5rem] shadow-md sm:rounded-3xl">
+                            {/* Top accent stripe */}
+                            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-amber-400 via-amber-500 to-green-500" />
+
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={selected.id}
+                                    initial={{ opacity: 0, x: 20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: -20 }}
+                                    transition={{ duration: 0.3, ease: "easeOut" }}
+                                    className="flex flex-col p-6 sm:p-10"
+                                >
                                 {/* Header */}
                                 <div className="mb-8 flex flex-col gap-5 sm:flex-row sm:items-start">
                                     <div className="relative h-18 w-18 flex h-[72px] w-[72px] shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-sm">
@@ -196,6 +233,7 @@ export function FellowshipsSection() {
                         </AnimatePresence>
                     </div>
                 </div>
+            </div>
 
                 {/* Bottom marquee strip */}
                 <div className="relative mt-10 overflow-hidden">

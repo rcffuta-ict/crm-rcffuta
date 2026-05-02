@@ -94,11 +94,12 @@ const config = {
     // ─── ABOUT SECTION ────────────────────────────────────────
     about: {
         tagline: "About the Gathering",
-        heading: "A Congress of Steadfast Believers",
+        heading: "A Congress of STEADFAST Believers",
+        highlight: "STEADFAST",
 
         // Rendered as separate paragraphs
         paragraphs: [
-            "The Zonal Congress is the premier annual gathering of all Redeemed Christian Fellowship (RCF) chapters across the Ondo Zone — convened and hosted by RCFFUTA.",
+            "The Zonal Congress is the premier annual gathering of all Redeemed Christian Fellowship (RCF) chapters across the Ondo Zone — hosted by RCFFUTA.",
             "Under the oversight of Christ The Redeemers Ministries (CRM), this congress is designed to forge unwavering leaders, sharpen fellowship executives, and ignite a fresh move of God across campuses.",
         ],
 

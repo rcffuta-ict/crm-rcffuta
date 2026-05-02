@@ -192,7 +192,7 @@ export function RadioGroup({
     required,
 }: RadioGroupProps) {
     return (
-        <div className="flex gap-3" role="radiogroup">
+        <div className="flex flex-wrap gap-3" role="radiogroup">
             <input
                 type="hidden"
                 name={name}

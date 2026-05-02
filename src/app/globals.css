@@ -397,3 +397,11 @@ textarea.input-base {
         0 0 0 3px rgba(200, 150, 12, 0.12),
         0 2px 6px rgba(0, 0, 0, 0.06);
 }
+/* Hide scrollbar utility */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
