@@ -283,7 +283,14 @@ const config = {
             presidentImage: "",
             founded: "TBA",
             location: "Irele, Ondo State",
-        }
+        },
+        {
+            id: "rccf-oaustech",
+            president: "TBA",
+            presidentImage: "",
+            founded: "TBA",
+            location: "Igodan, Okitipupa",
+        },
     ],
 
     // ─── SCHEDULE / ORDER OF EVENTS ───────────────────────────

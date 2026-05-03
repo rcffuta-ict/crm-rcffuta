@@ -143,7 +143,7 @@ export function FellowshipsSection() {
                                         }`}
                                     >
                                         {f.logo && !f.logo.startsWith("bg-") ? (
-                                            <img
+                                            <Image
                                                 src={f.logo}
                                                 alt={f.short}
                                                 fill
@@ -235,7 +235,7 @@ export function FellowshipsSection() {
                                                             "President"
                                                         }
                                                         fill
-                                                        className="object-cover"
+                                                        className="object-cover object-top"
                                                     />
                                                 ) : (
                                                     <Users className="h-5 w-5 text-amber-400" />
