@@ -7,6 +7,10 @@ export type Fellowship = {
     units: readonly string[];
     logo: string;
     description: string;
+    president?: string;
+    presidentImage?: string;
+    founded?: string;
+    location?: string;
 };
 
 export const fellowships: Fellowship[] = [
@@ -32,14 +36,18 @@ export const fellowships: Fellowship[] = [
             "Welfare",
             "Organizing",
             "Prayer",
-            "Ushering"
+            "Ushering",
         ],
+        president: "Bamise Emmanuel",
+        presidentImage: "https://i.imgur.com/wqOGmHj.jpeg",
+        founded: "1986",
+        location: "FUTA Southgate, Akure",
     },
     {
         id: "rcf-oaustech",
         name: "RCF OAUSTECH Chapter",
         short: "RCF OAUSTECH",
-        logo: "/images/logos/fellowships/rcf_logo.png", //"/images/logos/rcf-oaustech.png",
+        logo: "/images/logos/fellowships/rcf_logo.png",
         description:
             "Located beside Glory Villa, Igodan, Okitipupa. Connect to collect from God and receive His mercies.",
         units: [
@@ -58,12 +66,16 @@ export const fellowships: Fellowship[] = [
             "House Fellowship",
             "Follow Up",
         ],
+        president: "Elefola Olumide ",
+        presidentImage: "https://i.imgur.com/RC0mO1n.png",
+        founded: "TBA",
+        location: "Igodan, Okitipupa",
     },
     {
         id: "rcf-aaua",
         name: "RCF AAUA Chapter (Dominion Arena)",
         short: "RCF AAUA",
-        logo: "/images/logos/fellowships/rcf_logo.png", //"/images/logos/rcf-aaua.png",
+        logo: "/images/logos/fellowships/rcf_logo.png",
         description:
             "Known to be the most populous and happiest people on campus. Located in Akungba-Akoko.",
         units: [
@@ -84,12 +96,16 @@ export const fellowships: Fellowship[] = [
             "Sanitation",
             "House Fellowship",
         ],
+        president: "TBA",
+        presidentImage: "",
+        founded: "TBA",
+        location: "Akungba-Akoko",
     },
     {
         id: "rcf-rugipo",
         name: "RCF RUGIPO Chapter, Owo",
         short: "RCF RUGIPO",
-        logo: "/images/logos/fellowships/rcf_logo.png", //"/images/logos/rcf-rugipo.png",
+        logo: "/images/logos/fellowships/rcf_logo.png",
         description:
             "Located opposite Staff School, along Benin-Owo expressway. A place where we set the pace and others follow.",
         units: [
@@ -111,12 +127,16 @@ export const fellowships: Fellowship[] = [
             "Publicity",
             "Commercial",
         ],
+        president: "TBA",
+        presidentImage: "",
+        founded: "TBA",
+        location: "Owo, Ondo State",
     },
     {
         id: "rcf-unimed",
         name: "RCF UNIMED Ondo (City of Grace)",
         short: "RCF UNIMED",
-        logo: "/images/logos/fellowships/rcf_logo.png", //"/images/logos/rcf-unimed.png",
+        logo: "/images/logos/fellowships/rcf_logo.png",
         description:
             "Located at St Stephen’s Secondary School, Odosida Ondo. Expect to meet God and receive a divine turnaround.",
         units: [
@@ -134,12 +154,16 @@ export const fellowships: Fellowship[] = [
             "Technical and Organizing",
             "Academic",
         ],
+        president: "TBA",
+        presidentImage: "",
+        founded: "TBA",
+        location: "Ondo City",
     },
     {
         id: "rcf-millennium",
         name: "RCF Millennium Chapter",
         short: "RCF Millennium",
-        logo: "/images/logos/fellowships/rcf_logo.png", //"/images/logos/rcf-millennium.png",
+        logo: "/images/logos/fellowships/rcf_logo.png",
         description: "RCF Millennium College of Health Technology Akure.",
         units: [
             "Evangelism",
@@ -154,12 +178,16 @@ export const fellowships: Fellowship[] = [
             "Sanitation",
             "Media",
         ],
+        president: "TBA",
+        presidentImage: "",
+        founded: "TBA",
+        location: "Akure, Ondo State",
     },
     {
         id: "rcf-afued",
         name: "RCF Adeyemi Federal University of Education",
         short: "RCF AFUED",
-        logo: "/images/logos/fellowships/rcf_logo.png", //"/images/logos/rcf-afued.png", // Make sure to save the logo here
+        logo: "/images/logos/fellowships/rcf_logo.png",
         description:
             "Located Adjacent AFUED Gate, Ondo State. A family of love entrusted with raising a fresh generation that believes in and manifests the dominion of Christ.",
         units: [
@@ -182,6 +210,10 @@ export const fellowships: Fellowship[] = [
             "Health",
             "Commerce",
         ],
+        president: "ANIEGBO GOODNESS AMARACHI.",
+        presidentImage: "https://i.imgur.com/Kut9Yyw.png",
+        founded: "TBA",
+        location: "Ondo State",
     },
     {
         id: "rcf-feca",
@@ -204,12 +236,16 @@ export const fellowships: Fellowship[] = [
             "Organizing",
             "Academic",
         ],
+        president: "TBA",
+        presidentImage: "",
+        founded: "TBA",
+        location: "Akure, Ondo State",
     },
     {
         id: "rccf-akure",
         name: "Redeemed Christian Corpers' Fellowship, Akure",
         short: "RCCF AKURE",
-        logo: "/images/logos/fellowships/rcf_logo.png", // You might want to find an RCCF logo later
+        logo: "/images/logos/fellowships/rcf_logo.png",
         description:
             "The gathering of Kingdom Corpers in Akure. Service to the nation, devotion to God.",
         units: [
@@ -224,6 +260,10 @@ export const fellowships: Fellowship[] = [
             "Community Development",
             "Transport",
         ],
+        president: "TBA",
+        presidentImage: "",
+        founded: "TBA",
+        location: "Akure, Ondo State",
     },
     {
         id: "rcf-chta",
@@ -245,6 +285,10 @@ export const fellowships: Fellowship[] = [
             "Sanitation",
             "Academic",
         ],
+        president: "TBA",
+        presidentImage: "",
+        founded: "TBA",
+        location: "Akure, Ondo State",
     },
     {
         id: "rcf-unimed-akure",
@@ -263,6 +307,10 @@ export const fellowships: Fellowship[] = [
             "Academic",
             "Organizing",
         ],
+        president: "TBA",
+        presidentImage: "",
+        founded: "TBA",
+        location: "Akure, Ondo State",
     },
     {
         id: "rcf-achievers",
@@ -285,6 +333,10 @@ export const fellowships: Fellowship[] = [
             "Protocol",
             "Academic",
         ],
+        president: "Adelanke Adenike Joy",
+        presidentImage: "https://i.imgur.com/d1nBySB.png",
+        founded: "TBA",
+        location: "Owo, Ondo State",
     },
     {
         id: "rccf-irele",
@@ -306,6 +358,10 @@ export const fellowships: Fellowship[] = [
             "Transport",
             "Organizing",
         ],
+        president: "TBA",
+        presidentImage: "",
+        founded: "TBA",
+        location: "Irele, Ondo State",
     },
     {
         id: "rccf-oaustech",
