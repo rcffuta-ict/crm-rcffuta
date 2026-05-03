@@ -126,7 +126,7 @@ const config = {
         {
             id: "m1",
             role: "Guest Minister",
-            name: "Pst Emmanuel Ayodele",
+            name: "Pst. Emmanuel Ayodele",
             church: "TBA",
             picture: "https://i.imgur.com/R86LiQA.png", // e.g. "/images/ministers/pastor-john.jpg"
             accent: "from-amber-500 to-orange-600",
@@ -134,7 +134,7 @@ const config = {
         {
             id: "m2",
             role: "Guest Minister",
-            name: "Pst Kayode Alowooja",
+            name: "Pst. Kayode Alowooja",
             church: "TBA",
             picture: "https://i.imgur.com/xScvk0A.png",
             accent: "from-green-500 to-emerald-600",
@@ -142,7 +142,7 @@ const config = {
         {
             id: "m3",
             role: "Guest Minister",
-            name: "Pst Emmanuel Oladapo",
+            name: "Pst. Emmanuel Oladapo",
             church: "TBA",
             picture: "https://i.imgur.com/Tp0AsCp.png",
             accent: "from-blue-500 to-indigo-600",
@@ -150,7 +150,7 @@ const config = {
         {
             id: "m4",
             role: "Guest Minister",
-            name: "Pst Kolawole Adeboye",
+            name: "Pst. Kolawole Adeboye",
             church: "TBA",
             picture: "https://i.imgur.com/46t1TJD.png",
             accent: "from-purple-500 to-violet-600",
@@ -158,7 +158,7 @@ const config = {
         {
             id: "m5",
             role: "Guest Minister",
-            name: "PST Daniel Olawande",
+            name: "Pst. Daniel Olawande",
             church: "TBA",
             picture: "https://i.imgur.com/8qTIfTC.png",
             accent: "from-rose-500 to-pink-600",
@@ -182,7 +182,7 @@ const config = {
         {
             id: "m8",
             role: "Guest Minister",
-            name: "Pst Karunwi Ayobami",
+            name: "Pst. Karunwi Ayobami",
             church: "TBA",
             picture: "https://i.imgur.com/s4eYlnB.png",
             accent: "from-red-500 to-orange-600",
