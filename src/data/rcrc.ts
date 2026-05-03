@@ -67,9 +67,9 @@ const config = {
             logo: "/images/logos/crm.png",
         },
         {
-            name: "RCFFUTA",
-            full: "Redeemed Christian Fellowship, FUTA Chapter",
-            logo: "/images/logos/fellowships/rcf-futa.jpeg",
+            name: "RCF",
+            full: "Redeemed Christian Fellowship",
+            logo: "/images/logos/fellowships/rcf_logo.png",
         },
     ],
 
