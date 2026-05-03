@@ -138,11 +138,19 @@ export default function ZonalCongressApp() {
                         </div>
 
                         <h2 className="mb-6 text-4xl leading-tight font-bold text-slate-900 md:text-5xl">
-                            {config.about.heading.split(config.about.highlight)[0]}
+                            {
+                                config.about.heading.split(
+                                    config.about.highlight,
+                                )[0]
+                            }
                             <span className="text-gold-shimmer">
                                 {config.about.highlight}
                             </span>
-                            {config.about.heading.split(config.about.highlight)[1]}
+                            {
+                                config.about.heading.split(
+                                    config.about.highlight,
+                                )[1]
+                            }
                         </h2>
 
                         {config.about.paragraphs.map((p, i) => (
@@ -188,7 +196,7 @@ export default function ZonalCongressApp() {
                         className="relative"
                     >
                         <div className="relative z-10 grid grid-cols-2 gap-3">
-                            {config.about.images.map((img, i) => (
+                            {(config.about.images as any).map((img: any, i: number) => (
                                 <div
                                     key={i}
                                     className={`relative flex h-64 items-center justify-center overflow-hidden rounded-3xl border border-slate-200 bg-slate-100 shadow-sm ${
@@ -241,8 +249,8 @@ export default function ZonalCongressApp() {
                 className="relative overflow-hidden bg-[#f4f4f0] py-28"
             >
                 <div className="pointer-events-none absolute inset-0">
-                    <div className="absolute top-0 left-1/2 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
-                    <div className="absolute bottom-0 left-1/2 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
+                    <div className="absolute top-0 left-1/2 h-px w-3/4 -translate-x-1/2 bg-linear-to-r from-transparent via-slate-300 to-transparent" />
+                    <div className="absolute bottom-0 left-1/2 h-px w-3/4 -translate-x-1/2 bg-linear-to-r from-transparent via-slate-300 to-transparent" />
                     <div className="absolute top-1/4 right-0 h-96 w-96 translate-x-1/2 rounded-full bg-amber-100/60 blur-[100px]" />
                 </div>
 
@@ -255,7 +263,7 @@ export default function ZonalCongressApp() {
                     />
 
                     <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                        {config.ministers.map((minister, i) => (
+                        {(config.ministers as any).map((minister: any, i: number) => (
                             <motion.div
                                 key={minister.id}
                                 initial={{ opacity: 0, y: 40 }}
@@ -276,7 +284,7 @@ export default function ZonalCongressApp() {
                                             />
                                         ) : (
                                             <div
-                                                className={`flex h-full w-full items-center justify-center bg-gradient-to-br ${minister.accent} opacity-10`}
+                                                className={`flex h-full w-full items-center justify-center bg-linear-to-br ${minister.accent} opacity-10`}
                                             >
                                                 <div className="flex flex-col items-center gap-2">
                                                     <div className="h-20 w-20 rounded-full border-2 border-dashed border-slate-300" />
@@ -284,11 +292,11 @@ export default function ZonalCongressApp() {
                                             </div>
                                         )}
                                         {/* Bottom fade */}
-                                        <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-60" />
+                                        <div className="absolute inset-0 bg-linear-to-t from-white via-transparent to-transparent opacity-60" />
 
                                         {/* Gradient accent top strip */}
                                         <div
-                                            className={`absolute top-0 right-0 left-0 h-1 bg-gradient-to-r ${minister.accent}`}
+                                            className={`absolute top-0 right-0 left-0 h-1 bg-linear-to-r ${minister.accent}`}
                                         />
 
                                         {/* TBA badge */}
