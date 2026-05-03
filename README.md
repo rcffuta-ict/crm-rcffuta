@@ -1,7 +1,5 @@
 # CRM x RCFFUTA | Unified Event Portal
 
-![Unified Portal Banner](public/images/og-image.png)
-
 <div align="center">
   <img src="public/images/logos/rccg.png" height="60" alt="RCCG Logo" />
   &nbsp;&nbsp;&nbsp;&nbsp;
