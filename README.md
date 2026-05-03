@@ -5,7 +5,7 @@
   &nbsp;&nbsp;&nbsp;&nbsp;
   <img src="public/images/logos/crm.png" height="60" alt="CRM Logo" />
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="public/images/logos/fellowships/rcf_logo.png" height="60" alt="RCFFUTA Logo" />
+  <img src="public/images/logos/fellowships/rcf_logo.png" height="60" alt="RCF Logo" />
   &nbsp;&nbsp;&nbsp;&nbsp;
   <img src="public/images/logos/fellowships/rcf-futa.jpeg" height="60" alt="RCFFUTA Logo" />
 </div>
