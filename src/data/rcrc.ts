@@ -124,6 +124,14 @@ const config = {
     // accent: Tailwind gradient classes for the card glow.
     ministers: [
         {
+            id: "m2",
+            role: "Guest Minister",
+            name: "Pst. Kayode Alowooja",
+            church: "National Coordinator, CRM",
+            picture: "https://i.imgur.com/xScvk0A.png",
+            accent: "from-green-500 to-emerald-600",
+        },
+        {
             id: "m4",
             role: "Guest Minister",
             name: "Pst. Kolawole Adeboye",
@@ -138,14 +146,6 @@ const config = {
             church: "TBA",
             picture: "https://i.imgur.com/R86LiQA.png", // e.g. "/images/ministers/pastor-john.jpg"
             accent: "from-amber-500 to-orange-600",
-        },
-        {
-            id: "m2",
-            role: "Guest Minister",
-            name: "Pst. Kayode Alowooja",
-            church: "TBA",
-            picture: "https://i.imgur.com/xScvk0A.png",
-            accent: "from-green-500 to-emerald-600",
         },
         {
             id: "m5",
@@ -191,7 +191,7 @@ const config = {
             id: "m9",
             role: "Zonal Coordinator",
             name: "Pst. Gbenga Emmanuel",
-            church: "RCCG Global Parish",
+            church: "Zonal Coordinator, CRM Ondo Zone",
             picture: "https://i.imgur.com/LtyGzvx.jpeg",
             accent: "from-red-500 to-orange-600",
         },

@@ -160,7 +160,7 @@ export default function MinistersSection() {
                                         >
                                             {minister.role}
                                         </p>
-                                        <h3 className="text-lg font-bold text-slate-900">
+                                        <h3 className="text-sm font-bold text-slate-900">
                                             {minister.name}
                                         </h3>
                                         {minister.church &&
