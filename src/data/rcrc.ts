@@ -187,6 +187,14 @@ const config = {
             picture: "https://i.imgur.com/s4eYlnB.png",
             accent: "from-red-500 to-orange-600",
         },
+        {
+            id: "m9",
+            role: "Zonal Coordinator",
+            name: "Pst. Gbenga Emmanuel",
+            church: "RCCG Global Parish",
+            picture: "https://i.imgur.com/LtyGzvx.jpeg",
+            accent: "from-red-500 to-orange-600",
+        },
     ],
 
     // ─── FELLOWSHIP EXTRAS ────────────────────────────────────
