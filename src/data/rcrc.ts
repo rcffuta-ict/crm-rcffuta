@@ -299,6 +299,13 @@ const config = {
             founded: "TBA",
             location: "Igodan, Okitipupa",
         },
+        {
+            id: "rcf-ileoluji",
+            president: "Ishola Adeniyi James",
+            presidentImage: "",
+            founded: "TBA",
+            location: "Ile Oluji",
+        },
     ],
 
     // ─── SCHEDULE / ORDER OF EVENTS ───────────────────────────
