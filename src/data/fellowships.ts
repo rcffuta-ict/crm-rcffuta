@@ -387,7 +387,7 @@ export const fellowships: Fellowship[] = [
     {
         id: "rcf-ileoluji",
         name: "Redeemed Christian Fellowship, ILE OLUJI",
-        short: "RCCF ILEOLUJI",
+        short: "RCF ILEOLUJI",
         logo: "/images/logos/fellowships/rcf_logo.png",
         description: "",
         units: [
